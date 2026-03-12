@@ -18,7 +18,6 @@
   --accent: #ff00ff;
 }
 
-/* ===== 基本UI ===== */
 body {
   margin: 0;
   background: #020202;
@@ -26,44 +25,43 @@ body {
   color: white;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  text-align: center;
+  padding: 20px 0;
 }
 
 .container {
   max-width: 420px;
   width: 100%;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* 出力要素との間隔を広げた */
+  gap: 20px;
 }
 
 h1 {
-  font-size: 52px; /* タイトルを少し大きく */
+  font-size: 52px;
   color: var(--main);
+  text-align: center;
   text-shadow: 0 0 10px var(--main), 0 0 20px var(--main), 0 0 40px var(--main);
 }
 
 /* ===== コントロール ===== */
 .controls {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
   align-items: flex-start;
+  gap: 16px;
+}
+
+#generateBtn {
+  font-size: 18px;
+  padding: 12px 24px;
+  flex-shrink: 0;
 }
 
 .rightColumn {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 縦ボタン間隔 */
-}
-
-/* ボタンサイズ調整 */
-button#generateBtn {
-  font-size: 16px;
-  padding: 12px 20px;
+  gap: 10px;
+  align-items: stretch;
 }
 
 button, select {
@@ -77,7 +75,7 @@ button, select {
 }
 
 .block {
-  margin: 8px 0; /* 各要素間隔広げた */
+  margin: 10px 0;
 }
 
 .category {
@@ -89,20 +87,6 @@ button, select {
 .output {
   font-size: 17px;
   text-shadow: 0 0 6px var(--main);
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.history-item {
-  font-size: 13px;
-  border-bottom: 1px solid #333;
-  padding: 6px 0;
 }
 
 #loading {
@@ -127,12 +111,13 @@ button, select {
 
 <div class="container">
 
-<div id="mainPage" class="page active">
-
 <h1>City Generator</h1>
 
 <div class="controls">
+  <!-- 左側：Generateボタン -->
   <button id="generateBtn" onclick="generateCity()">Generate</button>
+
+  <!-- 右側：Mode selector と History 縦並び -->
   <div class="rightColumn">
     <select id="mode" onchange="changeTheme()">
       <option value="cyberpunk">Cyberpunk</option>
@@ -144,58 +129,15 @@ button, select {
   </div>
 </div>
 
-<div class="block">
-  <div class="category">建築</div>
-  <div class="output" id="architecture"></div>
-</div>
-
-<div class="block">
-  <div class="category">環境</div>
-  <div class="output" id="environment"></div>
-</div>
-
-<div class="block">
-  <div class="category">社会</div>
-  <div class="output" id="society"></div>
-</div>
-
-<div class="block">
-  <div class="category">雰囲気</div>
-  <div class="output" id="mood"></div>
-</div>
-
-<div class="block">
-  <div class="category">地区</div>
-  <div class="output" id="district"></div>
-</div>
-
-<div class="block">
-  <div class="category">施設</div>
-  <div class="output" id="facility"></div>
-</div>
-
-<div class="block">
-  <div class="category">職業</div>
-  <div class="output" id="job"></div>
-</div>
-
-<div class="block">
-  <div class="category">主要人物</div>
-  <div class="output" id="character"></div>
-</div>
-
-<div class="block">
-  <div class="category">事件</div>
-  <div class="output" id="event"></div>
-</div>
-
-</div>
-
-<div id="historyPage" class="page">
-<h1>History</h1>
-<button onclick="closeHistory()">Back</button>
-<div id="historyList"></div>
-</div>
+<div class="block"><div class="category">建築</div><div class="output" id="architecture"></div></div>
+<div class="block"><div class="category">環境</div><div class="output" id="environment"></div></div>
+<div class="block"><div class="category">社会</div><div class="output" id="society"></div></div>
+<div class="block"><div class="category">雰囲気</div><div class="output" id="mood"></div></div>
+<div class="block"><div class="category">地区</div><div class="output" id="district"></div></div>
+<div class="block"><div class="category">施設</div><div class="output" id="facility"></div></div>
+<div class="block"><div class="category">職業</div><div class="output" id="job"></div></div>
+<div class="block"><div class="category">主要人物</div><div class="output" id="character"></div></div>
+<div class="block"><div class="category">事件</div><div class="output" id="event"></div></div>
 
 </div>
 
@@ -209,7 +151,6 @@ const facility=document.getElementById("facility")
 const job=document.getElementById("job")
 const character=document.getElementById("character")
 const event=document.getElementById("event")
-const historyList=document.getElementById("historyList")
 
 const data={
 cyberpunk:{
@@ -263,7 +204,6 @@ function random(a){return a[Math.floor(Math.random()*a.length)]}
 function generateCity(){
 const mode=document.getElementById("mode").value
 const d=data[mode]
-
 architecture.textContent=random(d.architecture)
 environment.textContent=random(d.environment)
 society.textContent=random(d.society)
@@ -273,55 +213,14 @@ facility.textContent=random(d.facility)
 job.textContent=random(d.jobs)
 character.textContent=random(d.characters)
 event.textContent=random(d.events)
-
-const text=
-environment.textContent+" / "+
-society.textContent+" / "+
-event.textContent
-
-navigator.clipboard.writeText(text)
-saveHistory(text)
-}
-
-function saveHistory(text){
-let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
-history.unshift(text)
-if(history.length>30) history.pop()
-localStorage.setItem("cityHistory",JSON.stringify(history))
-}
-
-function openHistory(){
-document.getElementById("mainPage").classList.remove("active")
-document.getElementById("historyPage").classList.add("active")
-loadHistory()
-}
-
-function closeHistory(){
-document.getElementById("historyPage").classList.remove("active")
-document.getElementById("mainPage").classList.add("active")
-}
-
-function loadHistory(){
-historyList.innerHTML=""
-let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
-history.forEach((h,i)=>{
-const div=document.createElement("div")
-div.className="history-item"
-div.textContent=(i+1)+". "+h
-historyList.appendChild(div)
-})
 }
 
 function changeTheme(){
 const mode=document.getElementById("mode").value
-if(mode==="cyberpunk"){document.documentElement.style.setProperty("--main","#00ffff")
-document.documentElement.style.setProperty("--accent","#ff00ff")}
-if(mode==="apocalypse"){document.documentElement.style.setProperty("--main","#C0C0C0")
-document.documentElement.style.setProperty("--accent","#32CD32")}
-if(mode==="synthwave"){document.documentElement.style.setProperty("--main","#ff2bd6")
-document.documentElement.style.setProperty("--accent","#ff8c00")}
-if(mode==="noir"){document.documentElement.style.setProperty("--main","#ffffff")
-document.documentElement.style.setProperty("--accent","#888888")}
+if(mode==="cyberpunk"){document.documentElement.style.setProperty("--main","#00ffff");document.documentElement.style.setProperty("--accent","#ff00ff")}
+if(mode==="apocalypse"){document.documentElement.style.setProperty("--main","#C0C0C0");document.documentElement.style.setProperty("--accent","#32CD32")}
+if(mode==="synthwave"){document.documentElement.style.setProperty("--main","#ff2bd6");document.documentElement.style.setProperty("--accent","#ff8c00")}
+if(mode==="noir"){document.documentElement.style.setProperty("--main","#ffffff");document.documentElement.style.setProperty("--accent","#888888")}
 }
 
 window.addEventListener("load",function(){
