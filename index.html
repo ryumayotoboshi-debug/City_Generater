@@ -9,17 +9,29 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 
-<link rel="apple-touch-icon" sizes="180x180" href="IMG_4351.jpeg">
-<link rel="icon" type="image/jpeg" href="IMG_4351.jpeg">
+<link rel="apple-touch-icon" sizes="180x180" href="IMG_4351.png">
+<link rel="icon" type="image/png" href="IMG_4351.png">
 
 <title>City Generator</title>
 
 <style>
 
+/* ===== カラーテーマ ===== */
+
+:root{
+
+--main:#00ffff;
+--accent:#ff00ff;
+
+}
+
+/* ===== 基本UI ===== */
+
 body{
 
 margin:0;
 background:#020202;
+
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 color:white;
 
@@ -55,12 +67,12 @@ font-size:54px;
 
 margin:8px 0 10px 0;
 
-color:#00ffff;
+color:var(--main);
 
 text-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff,
-0 0 40px #00ffff;
+0 0 10px var(--main),
+0 0 20px var(--main),
+0 0 40px var(--main);
 
 }
 
@@ -81,13 +93,13 @@ padding:8px 16px;
 
 background:black;
 
-color:#00ffff;
+color:var(--main);
 
-border:2px solid #00ffff;
+border:2px solid var(--main);
 
 border-radius:10px;
 
-box-shadow:0 0 6px #00ffff;
+box-shadow:0 0 6px var(--main);
 
 }
 
@@ -101,8 +113,6 @@ line-height:1.5;
 
 }
 
-/* 各要素 */
-
 .block{
 
 margin:6px 0;
@@ -115,10 +125,10 @@ font-size:11px;
 
 letter-spacing:1px;
 
-color:#ff00ff;
+color:var(--accent);
 
 text-shadow:
-0 0 6px #ff00ff;
+0 0 6px var(--accent);
 
 }
 
@@ -129,7 +139,7 @@ font-size:17px;
 margin-top:2px;
 
 text-shadow:
-0 0 6px #00ffff;
+0 0 6px var(--main);
 
 }
 
@@ -149,13 +159,13 @@ justify-content:center;
 
 background:black;
 
-color:#00ffff;
+color:var(--main);
 
 font-size:24px;
 
 text-shadow:
-0 0 10px #00ffff,
-0 0 30px #00ffff;
+0 0 10px var(--main),
+0 0 30px var(--main);
 
 z-index:9999;
 
@@ -175,13 +185,12 @@ z-index:9999;
 
 <div class="controls">
 
-<select id="mode">
+<select id="mode" onchange="changeTheme()">
 <option value="cyberpunk">Cyberpunk</option>
 <option value="apocalypse">Post-Apocalypse</option>
 </select>
 
 <button onclick="generateCity()">Generate</button>
-
 <button onclick="copyResult()">Copy</button>
 
 </div>
@@ -298,6 +307,30 @@ character.textContent=random(d.characters)
 
 }
 
+/* ===== テーマ変更 ===== */
+
+function changeTheme(){
+
+const mode=document.getElementById("mode").value
+
+if(mode==="cyberpunk"){
+
+document.documentElement.style.setProperty("--main","#00ffff")
+document.documentElement.style.setProperty("--accent","#ff00ff")
+
+}
+
+if(mode==="apocalypse"){
+
+document.documentElement.style.setProperty("--main","#ff7a00")
+document.documentElement.style.setProperty("--accent","#ffcc00")
+
+}
+
+}
+
+/* ===== コピー ===== */
+
 function copyResult(){
 
 const text=
@@ -322,6 +355,7 @@ window.addEventListener("load",function(){
 
 document.getElementById("loading").style.display="none"
 
+changeTheme()
 generateCity()
 
 })
