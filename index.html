@@ -25,7 +25,11 @@ body {
   color: white;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   padding: 20px 0;
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
 }
 
 .container {
@@ -33,35 +37,36 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
+  align-items: center;
 }
 
 h1 {
-  font-size: 52px;
+  font-size: 54px;
   color: var(--main);
-  text-align: center;
   text-shadow: 0 0 10px var(--main), 0 0 20px var(--main), 0 0 40px var(--main);
+  margin-bottom: 20px;
 }
 
 /* ===== コントロール ===== */
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
-  gap: 16px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 #generateBtn {
   font-size: 18px;
   padding: 12px 24px;
-  flex-shrink: 0;
 }
 
 .rightColumn {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: stretch;
+  align-items: center;
 }
 
 button, select {
@@ -74,8 +79,10 @@ button, select {
   box-shadow: 0 0 6px var(--main);
 }
 
+/* ===== 出力要素 ===== */
 .block {
-  margin: 10px 0;
+  margin-bottom: 6px;
+  width: 100%;
 }
 
 .category {
@@ -222,6 +229,8 @@ if(mode==="apocalypse"){document.documentElement.style.setProperty("--main","#C0
 if(mode==="synthwave"){document.documentElement.style.setProperty("--main","#ff2bd6");document.documentElement.style.setProperty("--accent","#ff8c00")}
 if(mode==="noir"){document.documentElement.style.setProperty("--main","#ffffff");document.documentElement.style.setProperty("--accent","#888888")}
 }
+
+function openHistory(){alert("Historyページへの遷移機能をここに実装可能です")}
 
 window.addEventListener("load",function(){
 document.getElementById("loading").style.display="none"
