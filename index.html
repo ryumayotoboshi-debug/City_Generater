@@ -13,7 +13,7 @@
 
 <link rel="apple-touch-icon" href="IMG_4351.jpeg">
 
-<title>都市ジェネレーター</title>
+<title>City Generator</title>
 
 <style>
 
@@ -55,6 +55,11 @@ color:white;
 .result{
 font-size:18px;
 line-height:1.6;
+width:100%;
+}
+
+.block{
+margin-top:10px;
 }
 
 .category{
@@ -87,21 +92,36 @@ z-index:9999;
 
 <div class="container">
 
-<h1>都市ジェネレーター</h1>
+<h1>City Generator</h1>
 
-<button onclick="generateCity()">生成</button>
+<button onclick="generateCity()">Generate</button>
 
 <div class="result">
 
-<div><span class="category">都市タイプ</span><br><span id="city"></span></div>
+<div class="block">
+<div class="category">都市タイプ</div>
+<div id="city"></div>
+</div>
 
-<div><span class="category">建築</span><br><span id="architecture"></span></div>
+<div class="block">
+<div class="category">建築</div>
+<div id="architecture"></div>
+</div>
 
-<div><span class="category">環境</span><br><span id="environment"></span></div>
+<div class="block">
+<div class="category">環境</div>
+<div id="environment"></div>
+</div>
 
-<div><span class="category">社会</span><br><span id="society"></span></div>
+<div class="block">
+<div class="category">社会</div>
+<div id="society"></div>
+</div>
 
-<div><span class="category">雰囲気</span><br><span id="mood"></span></div>
+<div class="block">
+<div class="category">雰囲気</div>
+<div id="mood"></div>
+</div>
 
 </div>
 
@@ -110,45 +130,50 @@ z-index:9999;
 <script>
 
 const cityTypes=[
-"地下都市","水上都市","浮遊都市","垂直都市","迷路都市","巨大ドーム都市","宇宙港都市","砂漠都市","雪原都市","廃墟都市","工業都市","研究都市","港湾都市","鉱山都市","森林都市","要塞都市","宗教都市","市場都市","観光都市","辺境都市"
+"地下都市","水上都市","浮遊都市","垂直都市","迷路都市","巨大ドーム都市","宇宙港都市","砂漠都市","雪原都市","廃墟都市",
+"工業都市","研究都市","港湾都市","鉱山都市","森林都市","要塞都市","宗教都市","市場都市","観光都市","辺境都市"
 ];
 
 const architectures=[
-"ネオン広告","巨大看板","ガラス建築","コンクリート高層","レンガ街区","金属建築","古い石造","巨大パイプ","ケーブル網","ドーム建築","アーチ街路","細い路地","地下通路","屋上庭園","空中回廊","橋の街","高架道路","巨大塔","観測塔","発電施設"
+"ネオン広告","巨大看板","ガラス建築","コンクリート高層","レンガ街区","金属建築","古い石造","巨大パイプ","ケーブル網","ドーム建築",
+"アーチ街路","細い路地","地下通路","屋上庭園","空中回廊","橋の街","高架道路","巨大塔","観測塔","発電施設"
 ];
 
 const environments=[
-"雨","霧","雪","強風","嵐","雷","曇天","夕焼け","深夜","早朝","薄暗い空","ネオンの光","街灯","人工照明","煙","工場排気","静寂","騒音","人混み","無人"
+"雨","霧","雪","強風","嵐","雷","曇天","夕焼け","深夜","早朝",
+"薄暗い空","ネオンの光","街灯","人工照明","煙","工場排気","静寂","騒音","人混み","無人"
 ];
 
 const societies=[
-"AI監視社会","巨大企業統治","自律自治都市","研究機関支配","軍事都市","犯罪都市","交易都市","宗教支配","貴族都市","独裁都市","自由都市","無政府区域","監視都市","警察国家","商業都市","労働都市","移民都市","難民都市","観光都市","秘密都市"
+"AI監視社会","巨大企業統治","自律自治都市","研究機関支配","軍事都市","犯罪都市","交易都市","宗教支配","貴族都市","独裁都市",
+"自由都市","無政府区域","監視都市","警察国家","商業都市","労働都市","移民都市","難民都市","観光都市","秘密都市"
 ];
 
 const moods=[
-"孤独","郷愁","静寂","退廃","不安","緊張","希望","荒廃","混沌","神秘","温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
+"孤独","郷愁","静寂","退廃","不安","緊張","希望","荒廃","混沌","神秘",
+"温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
 ];
 
-function random(array){
+function randomFrom(array){
 return array[Math.floor(Math.random()*array.length)];
 }
 
 function generateCity(){
 
-document.getElementById("city").textContent=random(cityTypes);
-
-document.getElementById("architecture").textContent=random(architectures);
-
-document.getElementById("environment").textContent=random(environments);
-
-document.getElementById("society").textContent=random(societies);
-
-document.getElementById("mood").textContent=random(moods);
+document.getElementById("city").textContent=randomFrom(cityTypes);
+document.getElementById("architecture").textContent=randomFrom(architectures);
+document.getElementById("environment").textContent=randomFrom(environments);
+document.getElementById("society").textContent=randomFrom(societies);
+document.getElementById("mood").textContent=randomFrom(moods);
 
 }
 
 window.addEventListener("load",function(){
+
 document.getElementById("loading").style.display="none";
+
+generateCity();
+
 });
 
 </script>
