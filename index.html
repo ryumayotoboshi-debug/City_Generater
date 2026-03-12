@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="theme-color" content="#000000">
 
 <link rel="apple-touch-icon" href="IMG_4351.jpeg">
@@ -17,7 +16,6 @@
 <style>
 
 body{
-
 margin:0;
 background:#020202;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
@@ -26,141 +24,77 @@ display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
-
 }
-
-/* コンテナ */
 
 .container{
-
 display:flex;
 flex-direction:column;
-gap:10px;
+gap:8px;
 align-items:center;
 max-width:380px;
-padding:14px;
-
+padding:12px;
 }
-
-/* タイトル */
 
 h1{
-
-font-size:24px;
-margin:6px 0;
-
+font-size:22px;
+margin:4px;
 color:#00ffff;
-
-text-shadow:
-0 0 6px #00ffff,
-0 0 14px #00ffff,
-0 0 24px #00ffff;
-
+text-shadow:0 0 6px #00ffff,0 0 16px #00ffff;
 }
 
-/* ボタン */
-
-button{
-
-font-size:16px;
-
-padding:8px 18px;
-
-background:#000;
-
-color:#00ffff;
-
-border:2px solid #00ffff;
-
-border-radius:12px;
-
-box-shadow:
-0 0 6px #00ffff,
-0 0 16px #00ffff;
-
-}
-
-/* 結果エリア */
-
-.result{
+button,select{
 
 font-size:14px;
-
-line-height:1.3;
-
-width:100%;
-
-}
-
-/* ブロック */
-
-.block{
-
-margin-top:4px;
-
-}
-
-/* カテゴリ */
-
-.category{
-
-font-size:11px;
-
-color:#ff00ff;
-
-text-shadow:
-0 0 4px #ff00ff,
-0 0 10px #ff00ff;
-
-letter-spacing:1px;
-
-}
-
-/* 出力 */
-
-.output{
-
-font-size:16px;
-
-margin-top:2px;
-
-color:white;
-
-text-shadow:
-0 0 4px white,
-0 0 10px #00ffff;
-
-}
-
-/* loading */
-
-#loading{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
+padding:6px 14px;
+margin:2px;
 
 background:black;
 
 color:#00ffff;
 
+border:2px solid #00ffff;
+
+border-radius:10px;
+
+box-shadow:0 0 6px #00ffff;
+
+}
+
+.result{
+font-size:13px;
+line-height:1.3;
+width:100%;
+}
+
+.block{
+margin-top:3px;
+}
+
+.category{
+font-size:10px;
+color:#ff00ff;
+text-shadow:0 0 5px #ff00ff;
+}
+
+.output{
+font-size:15px;
+margin-top:2px;
+text-shadow:0 0 6px #00ffff;
+}
+
+#loading{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:black;
+color:#00ffff;
 font-size:22px;
-
-text-shadow:
-0 0 8px #00ffff,
-0 0 20px #00ffff;
-
 z-index:9999;
-
 }
 
 </style>
@@ -175,44 +109,34 @@ z-index:9999;
 
 <h1>City Generator</h1>
 
+<select id="mode">
+<option value="cyberpunk">Cyberpunk</option>
+<option value="fantasy">Fantasy</option>
+<option value="apocalypse">Post-Apocalypse</option>
+</select>
+
 <button onclick="generateCity()">Generate</button>
+<button onclick="copyResult()">Copy</button>
 
 <div class="result">
 
-<div class="block">
-<div class="category">都市タイプ</div>
-<div class="output" id="city"></div>
-</div>
+<div class="block"><div class="category">都市タイプ</div><div class="output" id="city"></div></div>
 
-<div class="block">
-<div class="category">建築</div>
-<div class="output" id="architecture"></div>
-</div>
+<div class="block"><div class="category">建築</div><div class="output" id="architecture"></div></div>
 
-<div class="block">
-<div class="category">環境</div>
-<div class="output" id="environment"></div>
-</div>
+<div class="block"><div class="category">環境</div><div class="output" id="environment"></div></div>
 
-<div class="block">
-<div class="category">社会</div>
-<div class="output" id="society"></div>
-</div>
+<div class="block"><div class="category">社会</div><div class="output" id="society"></div></div>
 
-<div class="block">
-<div class="category">雰囲気</div>
-<div class="output" id="mood"></div>
-</div>
+<div class="block"><div class="category">雰囲気</div><div class="output" id="mood"></div></div>
 
-<div class="block">
-<div class="category">地区</div>
-<div class="output" id="district"></div>
-</div>
+<div class="block"><div class="category">地区</div><div class="output" id="district"></div></div>
 
-<div class="block">
-<div class="category">施設</div>
-<div class="output" id="location"></div>
-</div>
+<div class="block"><div class="category">施設</div><div class="output" id="location"></div></div>
+
+<div class="block"><div class="category">職業</div><div class="output" id="job"></div></div>
+
+<div class="block"><div class="category">主要人物</div><div class="output" id="character"></div></div>
 
 </div>
 
@@ -220,59 +144,81 @@ z-index:9999;
 
 <script>
 
-/* 都市タイプ */
+/* モード別データ */
 
-const cityTypes=[
-"地下都市","水上都市","浮遊都市","垂直都市","迷路都市","巨大ドーム都市","宇宙港都市","砂漠都市","雪原都市","廃墟都市",
-"工業都市","研究都市","港湾都市","鉱山都市","森林都市","要塞都市","宗教都市","市場都市","観光都市","辺境都市"
-];
+const data={
 
-/* 建築 */
+cyberpunk:{
 
-const architectures=[
-"ネオン広告","巨大看板","ガラス建築","コンクリート高層","レンガ街区","金属建築","古い石造","巨大パイプ","ケーブル網","ドーム建築",
-"アーチ街路","細い路地","地下通路","屋上庭園","空中回廊","橋の街","高架道路","巨大塔","観測塔","発電施設"
-];
+city:["地下都市","浮遊都市","巨大企業都市","ネオン港湾都市"],
 
-/* 環境 */
+architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル","巨大パイプ"],
 
-const environments=[
-"雨","霧","雪","強風","嵐","雷","曇天","夕焼け","深夜","早朝",
-"薄暗い空","ネオンの光","街灯","人工照明","煙","工場排気","静寂","騒音","人混み","無人"
-];
+environment:["酸性雨","ネオンの夜","霧","人工照明"],
 
-/* 社会 */
+society:["企業統治","AI監視社会","巨大財閥","警察国家"],
 
-const societies=[
-"AI監視社会","巨大企業統治","自律自治都市","研究機関支配","軍事都市","犯罪都市","交易都市","宗教支配","貴族都市","独裁都市",
-"自由都市","無政府区域","監視都市","警察国家","商業都市","労働都市","移民都市","難民都市","観光都市","秘密都市"
-];
+mood:["退廃","孤独","機械的","混沌"],
 
-/* 雰囲気 */
+district:["ネオン歓楽街","下層スラム","企業本社街","データセンター区"],
 
-const moods=[
-"孤独","郷愁","静寂","退廃","不安","緊張","希望","荒廃","混沌","神秘",
-"温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
-];
+location:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
 
-/* 地区 */
+jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
 
-const districts=[
-"ネオン歓楽街","工業区","港湾地区","下層スラム","高級住宅街","研究区","宗教区","廃墟地区","地下マーケット","屋上農業区",
-"旧市街","倉庫街","軍事区","市場街","娯楽地区","観光区","行政区","居住区","企業本社街","データセンター街"
-];
+characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者","地下組織のリーダー"]
 
-/* 施設 */
+},
 
-const locations=[
-"夜だけ開く市場","違法サイバー改造クリニック","ネオンバー","AI修理店","屋上温室","密輸ドック","旧地下鉄駅","廃研究所",
-"巨大データセンター","ドローン発着場","秘密クラブ","宗教神殿","地下闘技場","古い図書館","発電施設","水処理施設",
-"観測塔","空中駅","巨大ショッピングモール","路地裏の食堂"
-];
+fantasy:{
+
+city:["魔法都市","王都","古代都市","浮遊城都市"],
+
+architecture:["石造塔","魔法塔","城壁都市","古代神殿"],
+
+environment:["霧の森","永遠の夕暮れ","魔力の風","星空"],
+
+society:["王国支配","魔術師評議会","神殿統治","貴族都市"],
+
+mood:["神秘","荘厳","幻想的","静寂"],
+
+district:["魔術師街","市場広場","神殿区","城壁地区"],
+
+location:["古代図書館","魔法ギルド","地下迷宮入口","錬金術工房"],
+
+jobs:["魔術師","錬金術師","傭兵","旅の商人"],
+
+characters:["放浪の魔術師","王国の騎士","禁書を探す学者","謎の予言者"]
+
+},
+
+apocalypse:{
+
+city:["廃墟都市","地下避難都市","要塞都市","廃工業都市"],
+
+architecture:["崩壊ビル","鉄の要塞","廃工場","補修された廃墟"],
+
+environment:["灰の空","砂嵐","放射能霧","荒野の風"],
+
+society:["生存者コミュニティ","軍事支配","無政府地帯","交易集落"],
+
+mood:["荒廃","緊張","絶望","わずかな希望"],
+
+district:["生存者市場","防衛区","廃墟地区","資源採掘区"],
+
+location:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター"],
+
+jobs:["スカベンジャー","メカニック","警備兵","交易商"],
+
+characters:["孤独な探索者","集落のリーダー","元軍人","失われた都市を探す学者"]
+
+}
+
+};
 
 /* ランダム */
 
-function randomFrom(array){
+function random(array){
 
 return array[Math.floor(Math.random()*array.length)];
 
@@ -282,23 +228,61 @@ return array[Math.floor(Math.random()*array.length)];
 
 function generateCity(){
 
-document.getElementById("city").textContent=randomFrom(cityTypes);
+const mode=document.getElementById("mode").value;
 
-document.getElementById("architecture").textContent=randomFrom(architectures);
+const d=data[mode];
 
-document.getElementById("environment").textContent=randomFrom(environments);
+document.getElementById("city").textContent=random(d.city);
 
-document.getElementById("society").textContent=randomFrom(societies);
+document.getElementById("architecture").textContent=random(d.architecture);
 
-document.getElementById("mood").textContent=randomFrom(moods);
+document.getElementById("environment").textContent=random(d.environment);
 
-document.getElementById("district").textContent=randomFrom(districts);
+document.getElementById("society").textContent=random(d.society);
 
-document.getElementById("location").textContent=randomFrom(locations);
+document.getElementById("mood").textContent=random(d.mood);
+
+document.getElementById("district").textContent=random(d.district);
+
+document.getElementById("location").textContent=random(d.location);
+
+document.getElementById("job").textContent=random(d.jobs);
+
+document.getElementById("character").textContent=random(d.characters);
 
 }
 
-/* 初期処理 */
+/* コピー */
+
+function copyResult(){
+
+const text=
+
+"都市タイプ: "+city.textContent+"\n"+
+
+"建築: "+architecture.textContent+"\n"+
+
+"環境: "+environment.textContent+"\n"+
+
+"社会: "+society.textContent+"\n"+
+
+"雰囲気: "+mood.textContent+"\n"+
+
+"地区: "+district.textContent+"\n"+
+
+"施設: "+location.textContent+"\n"+
+
+"職業: "+job.textContent+"\n"+
+
+"主要人物: "+character.textContent;
+
+navigator.clipboard.writeText(text);
+
+alert("コピーしました");
+
+}
+
+/* 初期 */
 
 window.addEventListener("load",function(){
 
