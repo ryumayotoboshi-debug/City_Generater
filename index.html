@@ -10,6 +10,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 <meta name="theme-color" content="#000000">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
   
 <style>
 body{
@@ -29,11 +32,33 @@ margin:20px;
 margin:10px;
 font-size:18px;
 }
+  
+.loading {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background: black;
+color: white;
+font-size: 24px;
+}
 </style>
+
+<script>
+window.addEventListener("load", function() {
+document.getElementById("loading").style.display = "none";
+});
+</script>
+  
 </head>
 
 <body>
-
+<div id="loading">Loading...</div>
+  
 <h1>City Generator</h1>
 
 <button onclick="generate()">Generate</button>
@@ -74,6 +99,10 @@ if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("service-worker.js");
 }
 
+window.addEventListener("load", function() {
+document.getElementById("loading").style.display = "none";
+});
+  
 </script>
 
 </body>
