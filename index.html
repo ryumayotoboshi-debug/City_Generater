@@ -16,37 +16,84 @@
 <style>
 
 body{
+
 margin:0;
+
 background:#020202;
+
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+
 color:white;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
+height:100vh;
+
 text-align:center;
+
 }
+
+/* コンテナ */
 
 .container{
+
 display:flex;
+
 flex-direction:column;
-gap:8px;
+
 align-items:center;
-max-width:380px;
-padding:12px;
+
+max-width:420px;
+
+padding:20px;
+
+gap:14px;
+
 }
 
+/* タイトル */
+
 h1{
-font-size:22px;
-margin:4px;
+
+font-size:32px;
+
+margin:6px 0 10px 0;
+
 color:#00ffff;
-text-shadow:0 0 6px #00ffff,0 0 16px #00ffff;
+
+text-shadow:
+
+0 0 8px #00ffff,
+
+0 0 20px #00ffff,
+
+0 0 40px #00ffff;
+
 }
+
+/* 操作エリア */
+
+.controls{
+
+display:flex;
+
+gap:8px;
+
+margin-bottom:8px;
+
+}
+
+/* ボタン・セレクト */
 
 button,select{
 
 font-size:14px;
-padding:6px 14px;
-margin:2px;
+
+padding:8px 16px;
 
 background:black;
 
@@ -60,41 +107,90 @@ box-shadow:0 0 6px #00ffff;
 
 }
 
+/* 結果 */
+
 .result{
-font-size:13px;
-line-height:1.3;
+
 width:100%;
+
+font-size:14px;
+
+line-height:1.5;
+
 }
+
+/* ブロック */
 
 .block{
-margin-top:3px;
+
+margin-top:8px;
+
 }
+
+/* カテゴリ */
 
 .category{
-font-size:10px;
+
+font-size:11px;
+
+letter-spacing:1px;
+
 color:#ff00ff;
-text-shadow:0 0 5px #ff00ff;
+
+text-shadow:
+
+0 0 5px #ff00ff;
+
 }
+
+/* 出力 */
 
 .output{
-font-size:15px;
-margin-top:2px;
-text-shadow:0 0 6px #00ffff;
+
+font-size:17px;
+
+margin-top:3px;
+
+text-shadow:
+
+0 0 6px #00ffff;
+
 }
 
+/* Loading */
+
 #loading{
+
 position:fixed;
+
 top:0;
+
 left:0;
+
 width:100%;
+
 height:100%;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 background:black;
+
 color:#00ffff;
-font-size:22px;
+
+font-size:24px;
+
+text-shadow:
+
+0 0 10px #00ffff,
+
+0 0 30px #00ffff;
+
 z-index:9999;
+
 }
 
 </style>
@@ -109,6 +205,8 @@ z-index:9999;
 
 <h1>City Generator</h1>
 
+<div class="controls">
+
 <select id="mode">
 <option value="cyberpunk">Cyberpunk</option>
 <option value="fantasy">Fantasy</option>
@@ -116,7 +214,10 @@ z-index:9999;
 </select>
 
 <button onclick="generateCity()">Generate</button>
+
 <button onclick="copyResult()">Copy</button>
+
+</div>
 
 <div class="result">
 
@@ -232,23 +333,15 @@ const mode=document.getElementById("mode").value;
 
 const d=data[mode];
 
-document.getElementById("city").textContent=random(d.city);
-
-document.getElementById("architecture").textContent=random(d.architecture);
-
-document.getElementById("environment").textContent=random(d.environment);
-
-document.getElementById("society").textContent=random(d.society);
-
-document.getElementById("mood").textContent=random(d.mood);
-
-document.getElementById("district").textContent=random(d.district);
-
-document.getElementById("location").textContent=random(d.location);
-
-document.getElementById("job").textContent=random(d.jobs);
-
-document.getElementById("character").textContent=random(d.characters);
+city.textContent=random(d.city);
+architecture.textContent=random(d.architecture);
+environment.textContent=random(d.environment);
+society.textContent=random(d.society);
+mood.textContent=random(d.mood);
+district.textContent=random(d.district);
+location.textContent=random(d.location);
+job.textContent=random(d.jobs);
+character.textContent=random(d.characters);
 
 }
 
@@ -259,21 +352,13 @@ function copyResult(){
 const text=
 
 "都市タイプ: "+city.textContent+"\n"+
-
 "建築: "+architecture.textContent+"\n"+
-
 "環境: "+environment.textContent+"\n"+
-
 "社会: "+society.textContent+"\n"+
-
 "雰囲気: "+mood.textContent+"\n"+
-
 "地区: "+district.textContent+"\n"+
-
 "施設: "+location.textContent+"\n"+
-
 "職業: "+job.textContent+"\n"+
-
 "主要人物: "+character.textContent;
 
 navigator.clipboard.writeText(text);
