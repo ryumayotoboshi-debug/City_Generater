@@ -16,40 +16,62 @@
 
 <style>
 
+/* 背景 */
+
 body{
+
 margin:0;
+
+background:#020202;
+
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:#050505;
-color:#ffffff;
+
+color:white;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 height:100vh;
+
 text-align:center;
+
 }
 
 /* コンテナ */
 
 .container{
+
 display:flex;
+
 flex-direction:column;
+
 gap:22px;
+
 align-items:center;
+
 max-width:420px;
+
 padding:20px;
+
 }
 
 /* ネオンタイトル */
 
 h1{
-font-size:32px;
+
+font-size:34px;
+
 color:#00ffff;
 
 text-shadow:
-0 0 6px #00ffff,
-0 0 12px #00ffff,
-0 0 25px #00ffff,
-0 0 40px #00ffff;
+0 0 8px #00ffff,
+0 0 16px #00ffff,
+0 0 32px #00ffff,
+0 0 64px #00ffff;
+
 }
 
 /* ネオンボタン */
@@ -57,6 +79,7 @@ text-shadow:
 button{
 
 font-size:20px;
+
 padding:12px 28px;
 
 background:#000;
@@ -64,32 +87,42 @@ background:#000;
 color:#00ffff;
 
 border:2px solid #00ffff;
+
 border-radius:14px;
 
 box-shadow:
-0 0 6px #00ffff,
-0 0 18px #00ffff;
+0 0 10px #00ffff,
+0 0 20px #00ffff,
+0 0 40px #00ffff;
 
 }
 
 button:active{
+
 box-shadow:
-0 0 4px #00ffff,
-0 0 8px #00ffff;
+0 0 6px #00ffff,
+0 0 12px #00ffff;
+
 }
 
-/* 結果 */
+/* 結果表示 */
 
 .result{
+
 font-size:18px;
+
 line-height:1.7;
+
 width:100%;
+
 }
 
 /* 各ブロック */
 
 .block{
-margin-top:8px;
+
+margin-top:10px;
+
 }
 
 /* カテゴリ */
@@ -97,31 +130,35 @@ margin-top:8px;
 .category{
 
 font-size:13px;
-opacity:0.7;
-letter-spacing:1px;
 
 color:#ff00ff;
 
 text-shadow:
 0 0 6px #ff00ff,
-0 0 12px #ff00ff;
+0 0 14px #ff00ff;
+
+letter-spacing:1px;
 
 }
 
-/* 生成テキスト */
+/* 出力テキスト */
 
 .output{
 
-font-size:18px;
+font-size:20px;
+
 margin-top:4px;
 
+color:#ffffff;
+
 text-shadow:
-0 0 4px #ffffff,
-0 0 10px #00ffff;
+0 0 5px #ffffff,
+0 0 12px #00ffff,
+0 0 18px #00ffff;
 
 }
 
-/* Loading */
+/* Loading画面 */
 
 #loading{
 
@@ -142,11 +179,11 @@ background:#000;
 
 color:#00ffff;
 
-font-size:24px;
+font-size:26px;
 
 text-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff;
+0 0 12px #00ffff,
+0 0 28px #00ffff;
 
 z-index:9999;
 
@@ -234,10 +271,12 @@ const moods=[
 "温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
 ];
 
-/* ランダム */
+/* ランダム取得 */
 
 function randomFrom(array){
+
 return array[Math.floor(Math.random()*array.length)];
+
 }
 
 /* 生成 */
@@ -256,7 +295,7 @@ document.getElementById("mood").textContent=randomFrom(moods);
 
 }
 
-/* 初期化 */
+/* 初期処理 */
 
 window.addEventListener("load",function(){
 
