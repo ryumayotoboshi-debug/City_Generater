@@ -9,14 +9,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 
-<link rel="apple-touch-icon" href="IMG_4351.jpeg">
-<link rel="icon" href="IMG_4351.jpeg">
+<link rel="apple-touch-icon" sizes="180x180" href="IMG_4351.jpeg">
+<link rel="icon" type="image/jpeg" href="IMG_4351.jpeg">
 
 <title>City Generator</title>
 
 <style>
 
 body{
+
 margin:0;
 background:#020202;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
@@ -27,26 +28,32 @@ justify-content:center;
 align-items:center;
 
 height:100vh;
+
 text-align:center;
+
+overflow:hidden;
+
 }
 
 .container{
+
 display:flex;
 flex-direction:column;
 align-items:center;
 
 max-width:420px;
-padding:20px;
 
-gap:20px;
+padding:16px;
+
+gap:14px;
+
 }
 
-/* タイトル */
-
 h1{
-font-size:52px;
 
-margin:12px 0 16px 0;
+font-size:54px;
+
+margin:8px 0 10px 0;
 
 color:#00ffff;
 
@@ -54,21 +61,23 @@ text-shadow:
 0 0 10px #00ffff,
 0 0 20px #00ffff,
 0 0 40px #00ffff;
+
 }
 
-/* 操作 */
-
 .controls{
+
 display:flex;
-gap:10px;
-margin-bottom:20px;
+gap:8px;
+
+margin-bottom:10px;
+
 }
 
 button,select{
 
-font-size:15px;
+font-size:14px;
 
-padding:9px 18px;
+padding:8px 16px;
 
 background:black;
 
@@ -82,30 +91,27 @@ box-shadow:0 0 6px #00ffff;
 
 }
 
-/* 結果 */
-
 .result{
 
 width:100%;
 
-font-size:15px;
-line-height:1.6;
+font-size:14px;
 
-padding-bottom:40px;
+line-height:1.5;
 
 }
 
 /* 各要素 */
 
 .block{
-margin:12px 0;
-}
 
-/* カテゴリ */
+margin:6px 0;
+
+}
 
 .category{
 
-font-size:12px;
+font-size:11px;
 
 letter-spacing:1px;
 
@@ -116,20 +122,16 @@ text-shadow:
 
 }
 
-/* 出力 */
-
 .output{
 
-font-size:18px;
+font-size:17px;
 
-margin-top:4px;
+margin-top:2px;
 
 text-shadow:
 0 0 6px #00ffff;
 
 }
-
-/* Loading */
 
 #loading{
 
@@ -327,5 +329,4 @@ generateCity()
 </script>
 
 </body>
-
 </html>
