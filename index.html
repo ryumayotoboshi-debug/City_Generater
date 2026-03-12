@@ -17,10 +17,8 @@
 <style>
 
 :root{
-
 --main:#00ffff;
 --accent:#ff00ff;
-
 }
 
 body{
@@ -29,17 +27,18 @@ margin:0;
 background:#020202;
 
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+
 color:white;
 
 display:flex;
 justify-content:center;
-align-items:center;
+align-items:flex-start;
 
-height:100vh;
+min-height:100vh;
 
 text-align:center;
 
-overflow:hidden;
+overflow:auto;
 
 }
 
@@ -51,7 +50,7 @@ align-items:center;
 
 max-width:420px;
 
-padding:16px;
+padding:20px;
 
 gap:14px;
 
@@ -59,9 +58,9 @@ gap:14px;
 
 h1{
 
-font-size:54px;
+font-size:48px;
 
-margin:8px 0 10px 0;
+margin:10px 0;
 
 color:var(--main);
 
@@ -76,8 +75,6 @@ text-shadow:
 
 display:flex;
 gap:8px;
-
-margin-bottom:10px;
 
 }
 
@@ -110,39 +107,63 @@ line-height:1.5;
 }
 
 .block{
-
 margin:6px 0;
-
 }
 
 .category{
 
 font-size:11px;
-
 letter-spacing:1px;
 
 color:var(--accent);
 
-text-shadow:
-0 0 6px var(--accent);
+text-shadow:0 0 6px var(--accent);
 
 }
 
 .output{
 
 font-size:17px;
-
 margin-top:2px;
 
-text-shadow:
-0 0 6px var(--main);
+text-shadow:0 0 6px var(--main);
+
+}
+
+.history{
+
+margin-top:20px;
+width:100%;
+
+border-top:1px solid #333;
+
+padding-top:10px;
+
+}
+
+.history h2{
+
+font-size:18px;
+
+color:var(--main);
+
+}
+
+.history-item{
+
+font-size:12px;
+
+margin:6px 0;
+
+border-bottom:1px solid #222;
+
+padding-bottom:4px;
 
 }
 
 #loading{
 
 position:fixed;
-
 top:0;
 left:0;
 
@@ -158,10 +179,6 @@ background:black;
 color:var(--main);
 
 font-size:24px;
-
-text-shadow:
-0 0 10px var(--main),
-0 0 30px var(--main);
 
 z-index:9999;
 
@@ -182,12 +199,15 @@ z-index:9999;
 <div class="controls">
 
 <select id="mode" onchange="changeTheme()">
+
 <option value="cyberpunk">Cyberpunk</option>
 <option value="apocalypse">Post-Apocalypse</option>
+<option value="synthwave">Synthwave</option>
+<option value="noir">Noir</option>
+
 </select>
 
 <button onclick="generateCity()">Generate</button>
-<button onclick="copyResult()">Copy</button>
 
 </div>
 
@@ -238,6 +258,19 @@ z-index:9999;
 <div class="output" id="character"></div>
 </div>
 
+<div class="block">
+<div class="category">事件</div>
+<div class="output" id="event"></div>
+</div>
+
+</div>
+
+<div class="history">
+
+<h2>History</h2>
+
+<div id="historyList"></div>
+
 </div>
 
 </div>
@@ -253,6 +286,11 @@ const district=document.getElementById("district")
 const facility=document.getElementById("facility")
 const job=document.getElementById("job")
 const character=document.getElementById("character")
+const event=document.getElementById("event")
+
+const historyList=document.getElementById("historyList")
+
+let history=[]
 
 const data={
 
@@ -265,19 +303,47 @@ mood:["退廃","孤独","機械的","混沌"],
 district:["ネオン歓楽街","下層スラム","企業本社街","データセンター区"],
 facility:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
 jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
-characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者","地下組織のリーダー"]
+characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者"],
+events:["AI暴走","企業データ盗難","サイバー改造暴走","企業スパイ事件"]
 },
 
 apocalypse:{
-city:["廃墟都市","地下避難都市","要塞都市","廃工業都市"],
-architecture:["崩壊ビル","鉄の要塞","廃工場","補修された廃墟"],
-environment:["灰の空","砂嵐","放射能霧","荒野の風"],
-society:["生存者コミュニティ","軍事支配","無政府地帯","交易集落"],
-mood:["荒廃","緊張","絶望","わずかな希望"],
-district:["生存者市場","防衛区","廃墟地区","資源採掘区"],
-facility:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター"],
-jobs:["スカベンジャー","メカニック","警備兵","交易商"],
-characters:["孤独な探索者","集落のリーダー","元軍人","失われた都市を探す学者"]
+city:["廃墟都市","地下避難都市","要塞都市"],
+architecture:["崩壊ビル","鉄の要塞","廃工場"],
+environment:["灰の空","砂嵐","放射能霧"],
+society:["生存者コミュニティ","軍事支配","無政府地帯"],
+mood:["荒廃","緊張","絶望"],
+district:["防衛区","廃墟地区","資源採掘区"],
+facility:["旧軍事基地","水浄化施設","地下シェルター"],
+jobs:["スカベンジャー","メカニック","交易商"],
+characters:["孤独な探索者","元軍人","集落のリーダー"],
+events:["資源争奪戦","放射能漏れ","集落襲撃"]
+},
+
+synthwave:{
+city:["ネオン海岸都市","永遠の夜の都市","ホログラム都市"],
+architecture:["グリッド道路","巨大ネオン看板","レトロ高層ビル"],
+environment:["紫の夕焼け","電子音の街","ネオン霧"],
+society:["企業文化","ナイトライフ経済"],
+mood:["ノスタルジック","夢幻","クール"],
+district:["レトロゲーム街","ネオンビーチ","音楽クラブ区"],
+facility:["レコードショップ","アーケードセンター","ネオンクラブ"],
+jobs:["DJ","ホログラムデザイナー","音楽プロデューサー"],
+characters:["孤独なドライバー","クラブDJ","ネオンアーティスト"],
+events:["ライブハッキング事件","音楽フェス混乱","ホログラム暴走"]
+},
+
+noir:{
+city:["雨の港町","暗黒都市","犯罪都市"],
+architecture:["古い高層ビル","レンガ街区","古い劇場"],
+environment:["夜の雨","霧の街路","暗い路地"],
+society:["犯罪組織","腐敗警察","地下社会"],
+mood:["陰鬱","孤独","緊張"],
+district:["歓楽街","旧港区","裏路地街区"],
+facility:["酒場","探偵事務所","地下カジノ"],
+jobs:["私立探偵","記者","バーテンダー"],
+characters:["疲れた探偵","謎の女","裏社会のボス"],
+events:["殺人事件","失踪事件","裏取引暴露"]
 }
 
 }
@@ -300,6 +366,39 @@ district.textContent=random(d.district)
 facility.textContent=random(d.facility)
 job.textContent=random(d.jobs)
 character.textContent=random(d.characters)
+event.textContent=random(d.events)
+
+const resultText=
+city.textContent+" / "+
+environment.textContent+" / "+
+society.textContent+" / "+
+event.textContent
+
+navigator.clipboard.writeText(resultText)
+
+addHistory(resultText)
+
+}
+
+function addHistory(text){
+
+history.unshift(text)
+
+if(history.length>20){
+history.pop()
+}
+
+historyList.innerHTML=""
+
+history.forEach((h,i)=>{
+
+const div=document.createElement("div")
+div.className="history-item"
+div.textContent=(i+1)+". "+h
+
+historyList.appendChild(div)
+
+})
 
 }
 
@@ -308,38 +407,24 @@ function changeTheme(){
 const mode=document.getElementById("mode").value
 
 if(mode==="cyberpunk"){
-
 document.documentElement.style.setProperty("--main","#00ffff")
-document.documentElement.style.setProperty("--accent","#FF1493")
-
+document.documentElement.style.setProperty("--accent","#ff00ff")
 }
 
 if(mode==="apocalypse"){
-
 document.documentElement.style.setProperty("--main","#C0C0C0")
 document.documentElement.style.setProperty("--accent","#32CD32")
-
 }
 
+if(mode==="synthwave"){
+document.documentElement.style.setProperty("--main","#ff2bd6")
+document.documentElement.style.setProperty("--accent","#ff8c00")
 }
 
-function copyResult(){
-
-const text=
-
-"都市タイプ: "+city.textContent+"\n"+
-"建築: "+architecture.textContent+"\n"+
-"環境: "+environment.textContent+"\n"+
-"社会: "+society.textContent+"\n"+
-"雰囲気: "+mood.textContent+"\n"+
-"地区: "+district.textContent+"\n"+
-"施設: "+facility.textContent+"\n"+
-"職業: "+job.textContent+"\n"+
-"主要人物: "+character.textContent
-
-navigator.clipboard.writeText(text)
-
-alert("コピーしました")
+if(mode==="noir"){
+document.documentElement.style.setProperty("--main","#ffffff")
+document.documentElement.style.setProperty("--accent","#888888")
+}
 
 }
 
