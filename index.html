@@ -9,8 +9,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 
-<link rel="apple-touch-icon" href="IMG_4351.jpeg">
-
 <title>City Generator</title>
 
 <style>
@@ -18,21 +16,15 @@
 body{
 
 margin:0;
-
 background:#020202;
-
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-
 color:white;
 
 display:flex;
-
 justify-content:center;
-
 align-items:center;
 
 height:100vh;
-
 text-align:center;
 
 }
@@ -42,16 +34,14 @@ text-align:center;
 .container{
 
 display:flex;
-
 flex-direction:column;
-
 align-items:center;
 
 max-width:420px;
 
 padding:20px;
 
-gap:14px;
+gap:20px;
 
 }
 
@@ -59,41 +49,37 @@ gap:14px;
 
 h1{
 
-font-size:32px;
+font-size:42px;
 
-margin:6px 0 10px 0;
+margin:10px 0 16px 0;
 
 color:#00ffff;
 
 text-shadow:
-
-0 0 8px #00ffff,
-
+0 0 10px #00ffff,
 0 0 20px #00ffff,
-
 0 0 40px #00ffff;
 
 }
 
-/* 操作エリア */
+/* 操作 */
 
 .controls{
 
 display:flex;
+gap:10px;
 
-gap:8px;
-
-margin-bottom:8px;
+margin-bottom:22px;
 
 }
 
-/* ボタン・セレクト */
+/* ボタン */
 
 button,select{
 
-font-size:14px;
+font-size:15px;
 
-padding:8px 16px;
+padding:9px 18px;
 
 background:black;
 
@@ -113,17 +99,19 @@ box-shadow:0 0 6px #00ffff;
 
 width:100%;
 
-font-size:14px;
+margin-top:10px;
 
-line-height:1.5;
+font-size:15px;
+
+line-height:1.6;
 
 }
 
-/* ブロック */
+/* 各要素 */
 
 .block{
 
-margin-top:8px;
+margin-top:14px;
 
 }
 
@@ -131,15 +119,14 @@ margin-top:8px;
 
 .category{
 
-font-size:11px;
+font-size:12px;
 
 letter-spacing:1px;
 
 color:#ff00ff;
 
 text-shadow:
-
-0 0 5px #ff00ff;
+0 0 6px #ff00ff;
 
 }
 
@@ -147,12 +134,11 @@ text-shadow:
 
 .output{
 
-font-size:17px;
+font-size:18px;
 
-margin-top:3px;
+margin-top:4px;
 
 text-shadow:
-
 0 0 6px #00ffff;
 
 }
@@ -164,17 +150,13 @@ text-shadow:
 position:fixed;
 
 top:0;
-
 left:0;
 
 width:100%;
-
 height:100%;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 background:black;
@@ -184,9 +166,7 @@ color:#00ffff;
 font-size:24px;
 
 text-shadow:
-
 0 0 10px #00ffff,
-
 0 0 30px #00ffff;
 
 z-index:9999;
@@ -245,87 +225,49 @@ z-index:9999;
 
 <script>
 
-/* モード別データ */
-
 const data={
 
 cyberpunk:{
-
 city:["地下都市","浮遊都市","巨大企業都市","ネオン港湾都市"],
-
 architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル","巨大パイプ"],
-
 environment:["酸性雨","ネオンの夜","霧","人工照明"],
-
 society:["企業統治","AI監視社会","巨大財閥","警察国家"],
-
 mood:["退廃","孤独","機械的","混沌"],
-
 district:["ネオン歓楽街","下層スラム","企業本社街","データセンター区"],
-
 location:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
-
 jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
-
 characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者","地下組織のリーダー"]
-
 },
 
 fantasy:{
-
 city:["魔法都市","王都","古代都市","浮遊城都市"],
-
 architecture:["石造塔","魔法塔","城壁都市","古代神殿"],
-
 environment:["霧の森","永遠の夕暮れ","魔力の風","星空"],
-
 society:["王国支配","魔術師評議会","神殿統治","貴族都市"],
-
 mood:["神秘","荘厳","幻想的","静寂"],
-
 district:["魔術師街","市場広場","神殿区","城壁地区"],
-
 location:["古代図書館","魔法ギルド","地下迷宮入口","錬金術工房"],
-
 jobs:["魔術師","錬金術師","傭兵","旅の商人"],
-
 characters:["放浪の魔術師","王国の騎士","禁書を探す学者","謎の予言者"]
-
 },
 
 apocalypse:{
-
 city:["廃墟都市","地下避難都市","要塞都市","廃工業都市"],
-
 architecture:["崩壊ビル","鉄の要塞","廃工場","補修された廃墟"],
-
 environment:["灰の空","砂嵐","放射能霧","荒野の風"],
-
 society:["生存者コミュニティ","軍事支配","無政府地帯","交易集落"],
-
 mood:["荒廃","緊張","絶望","わずかな希望"],
-
 district:["生存者市場","防衛区","廃墟地区","資源採掘区"],
-
 location:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター"],
-
 jobs:["スカベンジャー","メカニック","警備兵","交易商"],
-
 characters:["孤独な探索者","集落のリーダー","元軍人","失われた都市を探す学者"]
-
 }
 
 };
 
-/* ランダム */
-
-function random(array){
-
-return array[Math.floor(Math.random()*array.length)];
-
+function random(a){
+return a[Math.floor(Math.random()*a.length)];
 }
-
-/* 生成 */
 
 function generateCity(){
 
@@ -344,8 +286,6 @@ job.textContent=random(d.jobs);
 character.textContent=random(d.characters);
 
 }
-
-/* コピー */
 
 function copyResult(){
 
@@ -367,8 +307,6 @@ alert("コピーしました");
 
 }
 
-/* 初期 */
-
 window.addEventListener("load",function(){
 
 document.getElementById("loading").style.display="none";
@@ -380,5 +318,4 @@ generateCity();
 </script>
 
 </body>
-
 </html>
