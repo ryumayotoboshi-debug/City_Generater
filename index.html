@@ -9,12 +9,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 
+<link rel="apple-touch-icon" href="IMG_4351.jpeg">
+<link rel="icon" href="IMG_4351.jpeg">
+
 <title>City Generator</title>
 
 <style>
 
 body{
-
 margin:0;
 background:#020202;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
@@ -26,28 +28,25 @@ align-items:center;
 
 height:100vh;
 text-align:center;
-
 }
 
 .container{
-
 display:flex;
 flex-direction:column;
 align-items:center;
 
 max-width:420px;
-
 padding:20px;
 
 gap:20px;
-
 }
 
+/* タイトル */
+
 h1{
+font-size:52px;
 
-font-size:48px;
-
-margin:12px 0 18px 0;
+margin:12px 0 16px 0;
 
 color:#00ffff;
 
@@ -55,16 +54,14 @@ text-shadow:
 0 0 10px #00ffff,
 0 0 20px #00ffff,
 0 0 40px #00ffff;
-
 }
 
-.controls{
+/* 操作 */
 
+.controls{
 display:flex;
 gap:10px;
-
-margin-bottom:24px;
-
+margin-bottom:20px;
 }
 
 button,select{
@@ -85,23 +82,26 @@ box-shadow:0 0 6px #00ffff;
 
 }
 
+/* 結果 */
+
 .result{
 
 width:100%;
 
-margin-top:10px;
-
 font-size:15px;
-
 line-height:1.6;
 
+padding-bottom:40px;
+
 }
+
+/* 各要素 */
 
 .block{
-
-margin-top:16px;
-
+margin:12px 0;
 }
+
+/* カテゴリ */
 
 .category{
 
@@ -116,6 +116,8 @@ text-shadow:
 
 }
 
+/* 出力 */
+
 .output{
 
 font-size:18px;
@@ -126,6 +128,8 @@ text-shadow:
 0 0 6px #00ffff;
 
 }
+
+/* Loading */
 
 #loading{
 
@@ -182,23 +186,50 @@ z-index:9999;
 
 <div class="result">
 
-<div class="block"><div class="category">都市タイプ</div><div class="output" id="city"></div></div>
+<div class="block">
+<div class="category">都市タイプ</div>
+<div class="output" id="city"></div>
+</div>
 
-<div class="block"><div class="category">建築</div><div class="output" id="architecture"></div></div>
+<div class="block">
+<div class="category">建築</div>
+<div class="output" id="architecture"></div>
+</div>
 
-<div class="block"><div class="category">環境</div><div class="output" id="environment"></div></div>
+<div class="block">
+<div class="category">環境</div>
+<div class="output" id="environment"></div>
+</div>
 
-<div class="block"><div class="category">社会</div><div class="output" id="society"></div></div>
+<div class="block">
+<div class="category">社会</div>
+<div class="output" id="society"></div>
+</div>
 
-<div class="block"><div class="category">雰囲気</div><div class="output" id="mood"></div></div>
+<div class="block">
+<div class="category">雰囲気</div>
+<div class="output" id="mood"></div>
+</div>
 
-<div class="block"><div class="category">地区</div><div class="output" id="district"></div></div>
+<div class="block">
+<div class="category">地区</div>
+<div class="output" id="district"></div>
+</div>
 
-<div class="block"><div class="category">施設</div><div class="output" id="location"></div></div>
+<div class="block">
+<div class="category">施設</div>
+<div class="output" id="facility"></div>
+</div>
 
-<div class="block"><div class="category">職業</div><div class="output" id="job"></div></div>
+<div class="block">
+<div class="category">職業</div>
+<div class="output" id="job"></div>
+</div>
 
-<div class="block"><div class="category">主要人物</div><div class="output" id="character"></div></div>
+<div class="block">
+<div class="category">主要人物</div>
+<div class="output" id="character"></div>
+</div>
 
 </div>
 
@@ -206,17 +237,15 @@ z-index:9999;
 
 <script>
 
-/* DOM取得 */
-
-const city=document.getElementById("city");
-const architecture=document.getElementById("architecture");
-const environment=document.getElementById("environment");
-const society=document.getElementById("society");
-const mood=document.getElementById("mood");
-const district=document.getElementById("district");
-const locationEl=document.getElementById("location");
-const job=document.getElementById("job");
-const character=document.getElementById("character");
+const city=document.getElementById("city")
+const architecture=document.getElementById("architecture")
+const environment=document.getElementById("environment")
+const society=document.getElementById("society")
+const mood=document.getElementById("mood")
+const district=document.getElementById("district")
+const facility=document.getElementById("facility")
+const job=document.getElementById("job")
+const character=document.getElementById("character")
 
 const data={
 
@@ -227,7 +256,7 @@ environment:["酸性雨","ネオンの夜","霧","人工照明"],
 society:["企業統治","AI監視社会","巨大財閥","警察国家"],
 mood:["退廃","孤独","機械的","混沌"],
 district:["ネオン歓楽街","下層スラム","企業本社街","データセンター区"],
-location:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
+facility:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
 jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
 characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者","地下組織のリーダー"]
 },
@@ -239,32 +268,31 @@ environment:["灰の空","砂嵐","放射能霧","荒野の風"],
 society:["生存者コミュニティ","軍事支配","無政府地帯","交易集落"],
 mood:["荒廃","緊張","絶望","わずかな希望"],
 district:["生存者市場","防衛区","廃墟地区","資源採掘区"],
-location:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター"],
+facility:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター"],
 jobs:["スカベンジャー","メカニック","警備兵","交易商"],
 characters:["孤独な探索者","集落のリーダー","元軍人","失われた都市を探す学者"]
 }
 
-};
+}
 
 function random(a){
-return a[Math.floor(Math.random()*a.length)];
+return a[Math.floor(Math.random()*a.length)]
 }
 
 function generateCity(){
 
-const mode=document.getElementById("mode").value;
+const mode=document.getElementById("mode").value
+const d=data[mode]
 
-const d=data[mode];
-
-city.textContent=random(d.city);
-architecture.textContent=random(d.architecture);
-environment.textContent=random(d.environment);
-society.textContent=random(d.society);
-mood.textContent=random(d.mood);
-district.textContent=random(d.district);
-locationEl.textContent=random(d.location);
-job.textContent=random(d.jobs);
-character.textContent=random(d.characters);
+city.textContent=random(d.city)
+architecture.textContent=random(d.architecture)
+environment.textContent=random(d.environment)
+society.textContent=random(d.society)
+mood.textContent=random(d.mood)
+district.textContent=random(d.district)
+facility.textContent=random(d.facility)
+job.textContent=random(d.jobs)
+character.textContent=random(d.characters)
 
 }
 
@@ -278,25 +306,26 @@ const text=
 "社会: "+society.textContent+"\n"+
 "雰囲気: "+mood.textContent+"\n"+
 "地区: "+district.textContent+"\n"+
-"施設: "+locationEl.textContent+"\n"+
+"施設: "+facility.textContent+"\n"+
 "職業: "+job.textContent+"\n"+
-"主要人物: "+character.textContent;
+"主要人物: "+character.textContent
 
-navigator.clipboard.writeText(text);
+navigator.clipboard.writeText(text)
 
-alert("コピーしました");
+alert("コピーしました")
 
 }
 
 window.addEventListener("load",function(){
 
-document.getElementById("loading").style.display="none";
+document.getElementById("loading").style.display="none"
 
-generateCity();
+generateCity()
 
-});
+})
 
 </script>
 
 </body>
+
 </html>
