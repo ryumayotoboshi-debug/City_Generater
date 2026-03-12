@@ -5,90 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
-
 <link rel="apple-touch-icon" sizes="180x180" href="IMG_5995.png">
 <link rel="icon" type="image/png" href="IMG_5995.png">
-
 <title>City Generator</title>
 
 <style>
 :root{
---main:#00ffff;
---accent:#ff00ff;
+  --main:#00ffff;
+  --accent:#ff00ff;
 }
 body{
-margin:0;
-background:#020202;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-text-align:center;
-overflow:hidden;
+  margin:0;
+  background:#020202;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
 }
 .container{
-display:flex;
-flex-direction:column;
-align-items:center;
-max-width:420px;
-padding:16px;
-gap:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-width:420px;
+  padding:16px;
+  gap:12px;
 }
 h1{
-font-size:56px;
-margin:8px 0 14px 0;
-color:var(--main);
-text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
+  font-size:56px;
+  margin:8px 0 14px 0;
+  color:var(--main);
+  text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
 }
 .controls{
-display:flex;
-align-items:flex-start;
-gap:12px;
-margin-bottom:18px;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:18px;
 }
 .left-btns, .right-btns{
-display:flex;
-flex-direction:column;
-gap:8px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 .left-btns button{
-font-size:16px;
-padding:12px;
-width:160px;
-height:100px;
-background:black;color:var(--main);
-border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
+  font-size:16px;
+  padding:12px;
+  width:160px;
+  height:130px; /* 縦の長さを右ボタン2つ分に調整 */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  line-height:1.2;
+  background:black;color:var(--main);
+  border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
 }
 .right-btns button, .right-btns select{
-font-size:14px;
-padding:8px;
-width:120px;
-background:black;color:var(--main);
-border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
+  font-size:14px;
+  padding:8px;
+  width:120px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  line-height:1.2;
+  background:black;color:var(--main);
+  border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
 }
 .result{
-width:100%;
-font-size:14px;
-line-height:1.4;
+  width:100%;
+  font-size:14px;
+  line-height:1.4;
 }
 .block{
-margin-bottom:6px;
+  margin-bottom:6px;
 }
 .category{
-font-size:11px;letter-spacing:1px;color:var(--accent);
-text-shadow:0 0 6px var(--accent);
+  font-size:11px;letter-spacing:1px;color:var(--accent);
+  text-shadow:0 0 6px var(--accent);
 }
 .output{
-font-size:17px;margin-top:2px;text-shadow:0 0 6px var(--main);
+  font-size:17px;margin-top:2px;text-shadow:0 0 6px var(--main);
 }
 #loading{
-position:fixed;top:0;left:0;width:100%;height:100%;
-display:flex;align-items:center;justify-content:center;
-background:black;color:var(--main);
-font-size:24px;text-shadow:0 0 10px var(--main),0 0 30px var(--main);
-z-index:9999;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:black;color:var(--main);
+  font-size:24px;text-shadow:0 0 10px var(--main),0 0 30px var(--main);
+  z-index:9999;
 }
 </style>
 </head>
@@ -99,18 +107,18 @@ z-index:9999;
 <div class="container">
 <h1>City Generator</h1>
 <div class="controls">
-<div class="left-btns">
-<button onclick="generateCity()">Generate</button>
-</div>
-<div class="right-btns">
-<select id="mode" onchange="changeTheme()">
-<option value="cyberpunk">Cyberpunk</option>
-<option value="apocalypse">Post-Apocalypse</option>
-<option value="synthwave">Synthwave</option>
-<option value="noir">Noir</option>
-</select>
-<button onclick="openHistory()">History</button>
-</div>
+  <div class="left-btns">
+    <button onclick="generateCity()">Generate</button>
+  </div>
+  <div class="right-btns">
+    <select id="mode" onchange="changeTheme()">
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="apocalypse">Post-Apocalypse</option>
+      <option value="synthwave">Synthwave</option>
+      <option value="noir">Noir</option>
+    </select>
+    <button onclick="openHistory()">History</button>
+  </div>
 </div>
 
 <div class="result">
@@ -127,7 +135,6 @@ z-index:9999;
 </div>
 
 <script>
-// 要素取得
 const architecture=document.getElementById("architecture");
 const environment=document.getElementById("environment");
 const society=document.getElementById("society");
@@ -184,7 +191,6 @@ characters:["疲れた探偵","謎の女","暗黒組織リーダー","密輸屋�
 events:["殺人事件","失踪事件","密輸摘発","暗殺計画","裏社会抗争","盗難事件","夜の対立","情報漏洩","バー抗争","路地裏襲撃","警察腐敗事件","犯罪計画発覚","影の暗殺","古書店盗難","秘密倉庫強奪","探偵追跡事件","霧の港事件","暗黒ラウンジ襲撃","夜霧の殺人","裏路地強盗"]}
 };
 
-// ランダム関数
 function random(a){return a[Math.floor(Math.random()*a.length)];}
 
 // 履歴保存
@@ -197,7 +203,6 @@ function saveToHistory(resultText){
 // 履歴ページ遷移
 function openHistory(){window.location.href="history.html";}
 
-// 生成関数
 function generateCity(){
     const mode=document.getElementById("mode").value;
     const d=data[mode];
@@ -212,7 +217,6 @@ function generateCity(){
     character.textContent=random(d.characters);
     incident.textContent=random(d.incidents);
 
-    // 履歴保存
     const resultText=
         "建築: "+architecture.textContent+"\n"+
         "環境: "+environment.textContent+"\n"+
@@ -226,16 +230,38 @@ function generateCity(){
     saveToHistory(resultText);
 }
 
-// UIテーマ変更
 function changeTheme(){
     const mode=document.getElementById("mode").value;
-    if(mode==="cyberpunk"){document.documentElement.style.setProperty("--main","#00ffff");document.documentElement.style.setProperty("--accent","#ff00ff");}
-    if(mode==="apocalypse"){document.documentElement.style.setProperty("--main","#COCOCO");document.documentElement.style.setProperty("--accent","#32CD32");}
-    if(mode==="synthwave"){document.documentElement.style.setProperty("--main","#FF6EC7");document.documentElement.style.setProperty("--accent","#6E00FF");}
-    if(mode==="noir"){document.documentElement.style.setProperty("--main","#FFFFFF");document.documentElement.style.setProperty("--accent","#AAAAAA");}
+    if(mode==="cyberpunk"){
+        document.documentElement.style.setProperty("--main","#00ffff");
+        document.documentElement.style.setProperty("--accent","#ff00ff");
+        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
+          el.style.borderColor="#ff00ff";
+        });
+    }
+    if(mode==="apocalypse"){
+        document.documentElement.style.setProperty("--main","#COCOCO");
+        document.documentElement.style.setProperty("--accent","#32CD32");
+        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
+          el.style.borderColor="#FFFFFF"; // Post-Apocalypse枠線白
+        });
+    }
+    if(mode==="synthwave"){
+        document.documentElement.style.setProperty("--main","#FF6EC7");
+        document.documentElement.style.setProperty("--accent","#6E00FF");
+        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
+          el.style.borderColor="#6E00FF";
+        });
+    }
+    if(mode==="noir"){
+        document.documentElement.style.setProperty("--main","#FFFFFF");
+        document.documentElement.style.setProperty("--accent","#AAAAAA");
+        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
+          el.style.borderColor="#AAAAAA";
+        });
+    }
 }
 
-// ワンタップコピー
 function copyResult(){
     const text=
         "建築: "+architecture.textContent+"\n"+
@@ -251,7 +277,6 @@ function copyResult(){
     alert("コピーしました");
 }
 
-// 読み込み完了時
 window.addEventListener("load",function(){
     document.getElementById("loading").style.display="none";
     changeTheme();
