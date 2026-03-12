@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,66 +13,68 @@
 
 <link rel="apple-touch-icon" href="IMG_4351.jpeg">
 
-<link rel="manifest" href="manifest.json">
-
-<title>City Generator</title>
+<title>都市ジェネレーター</title>
 
 <style>
 
-body {
-margin: 0;
-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-background: #000;
-color: white;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-text-align: center;
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:#000;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
 }
 
-/* アプリの内容 */
-
-.container {
-display: flex;
-flex-direction: column;
-gap: 20px;
-align-items: center;
+.container{
+display:flex;
+flex-direction:column;
+gap:18px;
+align-items:center;
+max-width:420px;
+padding:20px;
 }
 
-/* タイトル */
-
-h1 {
-font-size: 32px;
-margin: 0;
+h1{
+font-size:30px;
+margin:0;
 }
 
-/* ボタン */
-
-button {
-font-size: 20px;
-padding: 12px 24px;
-border-radius: 12px;
-border: none;
-background: #2c2c2c;
-color: white;
+button{
+font-size:20px;
+padding:12px 24px;
+border-radius:12px;
+border:none;
+background:#2c2c2c;
+color:white;
 }
 
-/* Loading画面 */
+.result{
+font-size:18px;
+line-height:1.6;
+}
 
-#loading {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-background: black;
-color: white;
-font-size: 24px;
-z-index: 9999;
+.category{
+opacity:0.7;
+font-size:14px;
+}
+
+#loading{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:black;
+color:white;
+font-size:24px;
+z-index:9999;
 }
 
 </style>
@@ -86,46 +87,69 @@ z-index: 9999;
 
 <div class="container">
 
-<h1>City Generator</h1>
+<h1>都市ジェネレーター</h1>
 
-<button onclick="generateCity()">Generate</button>
+<button onclick="generateCity()">生成</button>
 
-<p id="result"></p>
+<div class="result">
+
+<div><span class="category">都市タイプ</span><br><span id="city"></span></div>
+
+<div><span class="category">建築</span><br><span id="architecture"></span></div>
+
+<div><span class="category">環境</span><br><span id="environment"></span></div>
+
+<div><span class="category">社会</span><br><span id="society"></span></div>
+
+<div><span class="category">雰囲気</span><br><span id="mood"></span></div>
+
+</div>
 
 </div>
 
 <script>
 
-function generateCity() {
-
-const cities = [
-"地下都市",
-"水上都市",
-"浮遊都市",
-"迷路都市",
-"廃墟都市",
-"工業都市",
-"研究都市",
-"港湾都市"
+const cityTypes=[
+"地下都市","水上都市","浮遊都市","垂直都市","迷路都市","巨大ドーム都市","宇宙港都市","砂漠都市","雪原都市","廃墟都市","工業都市","研究都市","港湾都市","鉱山都市","森林都市","要塞都市","宗教都市","市場都市","観光都市","辺境都市"
 ];
 
-const random = cities[Math.floor(Math.random() * cities.length)];
+const architectures=[
+"ネオン広告","巨大看板","ガラス建築","コンクリート高層","レンガ街区","金属建築","古い石造","巨大パイプ","ケーブル網","ドーム建築","アーチ街路","細い路地","地下通路","屋上庭園","空中回廊","橋の街","高架道路","巨大塔","観測塔","発電施設"
+];
 
-document.getElementById("result").textContent = random;
+const environments=[
+"雨","霧","雪","強風","嵐","雷","曇天","夕焼け","深夜","早朝","薄暗い空","ネオンの光","街灯","人工照明","煙","工場排気","静寂","騒音","人混み","無人"
+];
+
+const societies=[
+"AI監視社会","巨大企業統治","自律自治都市","研究機関支配","軍事都市","犯罪都市","交易都市","宗教支配","貴族都市","独裁都市","自由都市","無政府区域","監視都市","警察国家","商業都市","労働都市","移民都市","難民都市","観光都市","秘密都市"
+];
+
+const moods=[
+"孤独","郷愁","静寂","退廃","不安","緊張","希望","荒廃","混沌","神秘","温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
+];
+
+function random(array){
+return array[Math.floor(Math.random()*array.length)];
+}
+
+function generateCity(){
+
+document.getElementById("city").textContent=random(cityTypes);
+
+document.getElementById("architecture").textContent=random(architectures);
+
+document.getElementById("environment").textContent=random(environments);
+
+document.getElementById("society").textContent=random(societies);
+
+document.getElementById("mood").textContent=random(moods);
 
 }
 
-/* Loading消す */
-
-window.addEventListener("load", function() {
-document.getElementById("loading").style.display = "none";
+window.addEventListener("load",function(){
+document.getElementById("loading").style.display="none";
 });
-
-/* Service Worker */
-
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js");
-}
 
 </script>
 
