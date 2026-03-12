@@ -74,13 +74,16 @@ h1{
   display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center; /* 修正：文字を中央に配置 */
+  text-align:center;
   line-height:1.2;
   background:black;
   color:var(--main);
   border:2px solid var(--main);
   border-radius:10px;
   box-shadow:0 0 6px var(--main);
+  -webkit-appearance:none; /* 追加: iOS Safari で中央揃え有効化 */
+  -moz-appearance:none;
+  appearance:none;
 }
 .result{
   width:100%;
@@ -157,7 +160,6 @@ const job=document.getElementById("job");
 const character=document.getElementById("character");
 const incident=document.getElementById("incident");
 
-// ダミーデータ（20個ずつ例）
 const data={
 cyberpunk:{
 architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル","巨大パイプ","空中歩道","地下通路","改造ビル","ホログラム看板","自動運搬パイプ","巨大モニター","サイバーパンク屋台","透明ビル","企業塔","浮遊広告板","ガラスドーム","工業コンプレックス","配線ビル","監視タワー","ドローンポート","人工地盤"],
@@ -247,14 +249,13 @@ function changeTheme(){
     document.documentElement.style.setProperty("--main",mainColor);
     document.documentElement.style.setProperty("--accent",accentColor);
 
-    // 右2ボタンは常にGenerateと同じ色
     document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
         el.style.backgroundColor="black";
         el.style.color=getComputedStyle(document.querySelector('.left-btns button')).color;
         el.style.borderColor = (mode==="apocalypse") ? getComputedStyle(el).color : getComputedStyle(document.querySelector('.left-btns button')).borderColor;
     });
 
-    // Generateボタン高さを右2ボタンの合計＋gapに合わせる
+    // Generateボタン高さ調整
     const rightBtnContainer = document.querySelector('.right-btns');
     const gap = 8;
     const totalHeight = Array.from(rightBtnContainer.children).reduce((sum, el) => sum + el.offsetHeight, 0) + gap;
