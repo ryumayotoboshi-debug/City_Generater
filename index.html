@@ -18,17 +18,15 @@
 
 body{
 margin:0;
+background:#020202;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:#050505;
-color:#ffffff;
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 text-align:center;
 }
-
-/* コンテナ */
 
 .container{
 display:flex;
@@ -39,46 +37,34 @@ max-width:420px;
 padding:20px;
 }
 
-/* ネオンタイトル */
-
 h1{
-font-size:32px;
+font-size:34px;
 color:#00ffff;
-
 text-shadow:
-0 0 6px #00ffff,
-0 0 12px #00ffff,
-0 0 25px #00ffff,
-0 0 40px #00ffff;
+0 0 8px #00ffff,
+0 0 16px #00ffff,
+0 0 32px #00ffff,
+0 0 64px #00ffff;
 }
 
-/* ネオンボタン */
-
 button{
-
 font-size:20px;
 padding:12px 28px;
-
 background:#000;
-
 color:#00ffff;
-
 border:2px solid #00ffff;
 border-radius:14px;
-
 box-shadow:
-0 0 6px #00ffff,
-0 0 18px #00ffff;
-
+0 0 10px #00ffff,
+0 0 20px #00ffff,
+0 0 40px #00ffff;
 }
 
 button:active{
 box-shadow:
-0 0 4px #00ffff,
-0 0 8px #00ffff;
+0 0 6px #00ffff,
+0 0 12px #00ffff;
 }
-
-/* 結果 */
 
 .result{
 font-size:18px;
@@ -86,70 +72,45 @@ line-height:1.7;
 width:100%;
 }
 
-/* 各ブロック */
-
 .block{
-margin-top:8px;
+margin-top:10px;
 }
-
-/* カテゴリ */
 
 .category{
-
 font-size:13px;
-opacity:0.7;
-letter-spacing:1px;
-
 color:#ff00ff;
-
 text-shadow:
 0 0 6px #ff00ff,
-0 0 12px #ff00ff;
-
+0 0 14px #ff00ff;
+letter-spacing:1px;
 }
-
-/* 生成テキスト */
 
 .output{
-
-font-size:18px;
+font-size:20px;
 margin-top:4px;
-
+color:#ffffff;
 text-shadow:
-0 0 4px #ffffff,
-0 0 10px #00ffff;
-
+0 0 5px #ffffff,
+0 0 12px #00ffff,
+0 0 18px #00ffff;
 }
 
-/* Loading */
-
 #loading{
-
 position:fixed;
-
 top:0;
 left:0;
-
 width:100%;
 height:100%;
-
 display:flex;
-
 align-items:center;
 justify-content:center;
-
 background:#000;
-
 color:#00ffff;
-
-font-size:24px;
-
+font-size:26px;
 text-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff;
-
+0 0 12px #00ffff,
+0 0 28px #00ffff;
 z-index:9999;
-
 }
 
 </style>
@@ -193,6 +154,16 @@ z-index:9999;
 <div class="output" id="mood"></div>
 </div>
 
+<div class="block">
+<div class="category">地区</div>
+<div class="output" id="district"></div>
+</div>
+
+<div class="block">
+<div class="category">施設</div>
+<div class="output" id="location"></div>
+</div>
+
 </div>
 
 </div>
@@ -234,7 +205,22 @@ const moods=[
 "温かさ","冷たさ","機械的","幻想的","陰鬱","開放感","閉塞感","懐古","未来感","夢のよう"
 ];
 
-/* ランダム */
+/* 地区 */
+
+const districts=[
+"ネオン歓楽街","工業区","港湾地区","下層スラム","高級住宅街","研究区","宗教区","廃墟地区","地下マーケット","屋上農業区",
+"旧市街","倉庫街","軍事区","市場街","娯楽地区","観光区","行政区","居住区","企業本社街","データセンター街"
+];
+
+/* 施設 */
+
+const locations=[
+"夜だけ開く市場","違法サイバー改造クリニック","ネオンバー","AI修理店","屋上温室","密輸ドック","旧地下鉄駅","廃研究所",
+"巨大データセンター","ドローン発着場","秘密クラブ","宗教神殿","地下闘技場","古い図書館","発電施設","水処理施設",
+"観測塔","空中駅","巨大ショッピングモール","路地裏の食堂"
+];
+
+/* ランダム取得 */
 
 function randomFrom(array){
 return array[Math.floor(Math.random()*array.length)];
@@ -254,9 +240,13 @@ document.getElementById("society").textContent=randomFrom(societies);
 
 document.getElementById("mood").textContent=randomFrom(moods);
 
+document.getElementById("district").textContent=randomFrom(districts);
+
+document.getElementById("location").textContent=randomFrom(locations);
+
 }
 
-/* 初期化 */
+/* 初期処理 */
 
 window.addEventListener("load",function(){
 
