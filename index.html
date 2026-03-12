@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>City_Generator</title>
+
+<style>
+body{
+font-family:sans-serif;
+text-align:center;
+background:#111;
+color:#eee;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin:20px;
+}
+
+.result{
+margin:10px;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>City Generator</h1>
+
+<button onclick="generate()">Generate</button>
+
+<div class="result">都市タイプ: <span id="type"></span></div>
+<div class="result">建築: <span id="arch"></span></div>
+<div class="result">環境: <span id="env"></span></div>
+<div class="result">社会: <span id="soc"></span></div>
+<div class="result">雰囲気: <span id="mood"></span></div>
+
+<script>
+
+const types=["地下都市","水上都市","垂直都市","廃墟都市","工業都市"];
+
+const arch=["ネオン広告","ガラス建築","レンガ街区","巨大パイプ","高層ビル"];
+
+const env=["雨","霧","曇り","深夜","夕暮れ"];
+
+const soc=["AI監視社会","企業都市","自律区","無政府区域","研究都市"];
+
+const mood=["孤独","郷愁","静寂","退廃","不安"];
+
+function pick(arr){
+return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function generate(){
+
+document.getElementById("type").textContent=pick(types);
+document.getElementById("arch").textContent=pick(arch);
+document.getElementById("env").textContent=pick(env);
+document.getElementById("soc").textContent=pick(soc);
+document.getElementById("mood").textContent=pick(mood);
+
+}
+
+</script>
+
+</body>
+</html>
