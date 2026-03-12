@@ -53,9 +53,9 @@ h1{
 }
 .left-btns button{
   font-size:16px;
-  padding:12px;
   width:160px;
-  height:132px; /* 右2ボタン縦幅に合わせる */
+  /* 右2ボタンの高さ合計 + gapに合わせる */
+  height: calc(2 * 48px + 8px); /* 例: 右2ボタン48px＋gap8px */
   display:flex;
   justify-content:center;
   align-items:center;
@@ -71,6 +71,7 @@ h1{
   font-size:14px;
   padding:12px 8px;
   width:160px;
+  height:48px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -78,7 +79,7 @@ h1{
   line-height:1.2;
   background:black;
   color:var(--main);
-  border:2px solid var(--main); /* Generateボタンに合わせる */
+  border:2px solid var(--main);
   border-radius:10px;
   box-shadow:0 0 6px var(--main);
 }
@@ -119,7 +120,7 @@ h1{
 
 <div class="controls">
   <div class="left-btns">
-    <button onclick="generateCity()">Generate</button>
+    <button id="generateBtn" onclick="generateCity()">Generate</button>
   </div>
   <div class="right-btns">
     <select id="mode" onchange="changeTheme()">
@@ -238,25 +239,28 @@ function generateCity(){
 
 function changeTheme(){
     const mode=document.getElementById("mode").value;
-    if(mode==="cyberpunk"){
-        document.documentElement.style.setProperty("--main","#00ffff");
-        document.documentElement.style.setProperty("--accent","#ff00ff");
-    } else if(mode==="apocalypse"){
-        document.documentElement.style.setProperty("--main","#COCOCO");
-        document.documentElement.style.setProperty("--accent","#32CD32");
-    } else if(mode==="synthwave"){
-        document.documentElement.style.setProperty("--main","#FF6EC7");
-        document.documentElement.style.setProperty("--accent","#6E00FF");
-    } else if(mode==="noir"){
-        document.documentElement.style.setProperty("--main","#FFFFFF");
-        document.documentElement.style.setProperty("--accent","#AAAAAA");
-    }
+    let mainColor="", accentColor="";
+    if(mode==="cyberpunk"){ mainColor="#00ffff"; accentColor="#ff00ff"; }
+    else if(mode==="apocalypse"){ mainColor="#ffffff"; accentColor="#32CD32"; }
+    else if(mode==="synthwave"){ mainColor="#FF6EC7"; accentColor="#6E00FF"; }
+    else if(mode==="noir"){ mainColor="#FFFFFF"; accentColor="#AAAAAA"; }
+    
+    document.documentElement.style.setProperty("--main",mainColor);
+    document.documentElement.style.setProperty("--accent",accentColor);
+
     // 右2ボタンは常にGenerateと同じ色
     document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
         el.style.backgroundColor="black";
         el.style.color=getComputedStyle(document.querySelector('.left-btns button')).color;
-        el.style.borderColor=getComputedStyle(document.querySelector('.left-btns button')).borderColor;
+        // Post-Apocalypseモードの際は枠線も文字色に合わせる
+        el.style.borderColor = (mode==="apocalypse") ? getComputedStyle(el).color : getComputedStyle(document.querySelector('.left-btns button')).borderColor;
     });
+
+    // Generateボタン高さを右2ボタンの合計＋gapに合わせる
+    const rightBtnContainer = document.querySelector('.right-btns');
+    const gap = 8; // gap:8px
+    const totalHeight = Array.from(rightBtnContainer.children).reduce((sum, el) => sum + el.offsetHeight, 0) + gap;
+    document.querySelector('.left-btns button').style.height = totalHeight + "px";
 }
 
 window.addEventListener("load",function(){
