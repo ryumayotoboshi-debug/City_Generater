@@ -38,19 +38,17 @@ min-height:100vh;
 
 text-align:center;
 
-overflow:auto;
-
 }
 
 .container{
 
-display:flex;
-flex-direction:column;
-align-items:center;
-
 max-width:420px;
+width:100%;
 
 padding:20px;
+
+display:flex;
+flex-direction:column;
 
 gap:14px;
 
@@ -60,21 +58,12 @@ h1{
 
 font-size:48px;
 
-margin:10px 0;
-
 color:var(--main);
 
 text-shadow:
 0 0 10px var(--main),
 0 0 20px var(--main),
 0 0 40px var(--main);
-
-}
-
-.controls{
-
-display:flex;
-gap:8px;
 
 }
 
@@ -96,14 +85,11 @@ box-shadow:0 0 6px var(--main);
 
 }
 
-.result{
-
-width:100%;
-
-font-size:14px;
-
-line-height:1.5;
-
+.controls{
+display:flex;
+gap:8px;
+justify-content:center;
+flex-wrap:wrap;
 }
 
 .block{
@@ -113,51 +99,36 @@ margin:6px 0;
 .category{
 
 font-size:11px;
+
 letter-spacing:1px;
 
 color:var(--accent);
-
-text-shadow:0 0 6px var(--accent);
 
 }
 
 .output{
 
 font-size:17px;
-margin-top:2px;
 
 text-shadow:0 0 6px var(--main);
 
 }
 
-.history{
-
-margin-top:20px;
-width:100%;
-
-border-top:1px solid #333;
-
-padding-top:10px;
-
+.page{
+display:none;
 }
 
-.history h2{
-
-font-size:18px;
-
-color:var(--main);
-
+.page.active{
+display:block;
 }
 
 .history-item{
 
-font-size:12px;
+font-size:13px;
 
-margin:6px 0;
+border-bottom:1px solid #333;
 
-border-bottom:1px solid #222;
-
-padding-bottom:4px;
+padding:6px;
 
 }
 
@@ -194,6 +165,10 @@ z-index:9999;
 
 <div class="container">
 
+<!-- MAIN PAGE -->
+
+<div id="mainPage" class="page active">
+
 <h1>City Generator</h1>
 
 <div class="controls">
@@ -209,9 +184,9 @@ z-index:9999;
 
 <button onclick="generateCity()">Generate</button>
 
-</div>
+<button onclick="openHistory()">History</button>
 
-<div class="result">
+</div>
 
 <div class="block">
 <div class="category">都市タイプ</div>
@@ -265,9 +240,13 @@ z-index:9999;
 
 </div>
 
-<div class="history">
+<!-- HISTORY PAGE -->
 
-<h2>History</h2>
+<div id="historyPage" class="page">
+
+<h1>History</h1>
+
+<button onclick="closeHistory()">Back</button>
 
 <div id="historyList"></div>
 
@@ -290,60 +269,58 @@ const event=document.getElementById("event")
 
 const historyList=document.getElementById("historyList")
 
-let history=[]
-
 const data={
 
 cyberpunk:{
 city:["地下都市","浮遊都市","巨大企業都市","ネオン港湾都市"],
-architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル","巨大パイプ"],
-environment:["酸性雨","ネオンの夜","霧","人工照明"],
-society:["企業統治","AI監視社会","巨大財閥","警察国家"],
-mood:["退廃","孤独","機械的","混沌"],
-district:["ネオン歓楽街","下層スラム","企業本社街","データセンター区"],
-facility:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
-jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
-characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者"],
-events:["AI暴走","企業データ盗難","サイバー改造暴走","企業スパイ事件"]
+architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル"],
+environment:["酸性雨","ネオンの夜","霧"],
+society:["企業統治","AI監視社会","巨大財閥"],
+mood:["退廃","孤独","混沌"],
+district:["ネオン歓楽街","下層スラム","企業本社街"],
+facility:["サイバー改造クリニック","夜市場","AI修理店"],
+jobs:["ハッカー","情報ブローカー","サイバー外科医"],
+characters:["逃亡ハッカー","企業エージェント","地下組織リーダー"],
+events:["AI暴走","企業データ盗難","サイバー犯罪"]
 },
 
 apocalypse:{
 city:["廃墟都市","地下避難都市","要塞都市"],
 architecture:["崩壊ビル","鉄の要塞","廃工場"],
 environment:["灰の空","砂嵐","放射能霧"],
-society:["生存者コミュニティ","軍事支配","無政府地帯"],
-mood:["荒廃","緊張","絶望"],
-district:["防衛区","廃墟地区","資源採掘区"],
-facility:["旧軍事基地","水浄化施設","地下シェルター"],
-jobs:["スカベンジャー","メカニック","交易商"],
-characters:["孤独な探索者","元軍人","集落のリーダー"],
-events:["資源争奪戦","放射能漏れ","集落襲撃"]
+society:["生存者コミュニティ","軍事支配"],
+mood:["荒廃","緊張"],
+district:["防衛区","廃墟地区"],
+facility:["水浄化施設","地下シェルター"],
+jobs:["スカベンジャー","交易商"],
+characters:["孤独な探索者","元軍人"],
+events:["資源争奪","集落襲撃"]
 },
 
 synthwave:{
-city:["ネオン海岸都市","永遠の夜の都市","ホログラム都市"],
-architecture:["グリッド道路","巨大ネオン看板","レトロ高層ビル"],
-environment:["紫の夕焼け","電子音の街","ネオン霧"],
-society:["企業文化","ナイトライフ経済"],
-mood:["ノスタルジック","夢幻","クール"],
-district:["レトロゲーム街","ネオンビーチ","音楽クラブ区"],
-facility:["レコードショップ","アーケードセンター","ネオンクラブ"],
-jobs:["DJ","ホログラムデザイナー","音楽プロデューサー"],
-characters:["孤独なドライバー","クラブDJ","ネオンアーティスト"],
-events:["ライブハッキング事件","音楽フェス混乱","ホログラム暴走"]
+city:["ネオン海岸都市","ホログラム都市"],
+architecture:["ネオン高層ビル","グリッド道路"],
+environment:["紫の夕焼け","ネオン霧"],
+society:["ナイトライフ文化"],
+mood:["ノスタルジック","夢幻"],
+district:["ネオンビーチ","レトロゲーム街"],
+facility:["アーケードセンター","ネオンクラブ"],
+jobs:["DJ","ホログラムデザイナー"],
+characters:["孤独なドライバー","ネオンアーティスト"],
+events:["ライブハッキング","ホログラム暴走"]
 },
 
 noir:{
-city:["雨の港町","暗黒都市","犯罪都市"],
-architecture:["古い高層ビル","レンガ街区","古い劇場"],
-environment:["夜の雨","霧の街路","暗い路地"],
-society:["犯罪組織","腐敗警察","地下社会"],
-mood:["陰鬱","孤独","緊張"],
-district:["歓楽街","旧港区","裏路地街区"],
-facility:["酒場","探偵事務所","地下カジノ"],
-jobs:["私立探偵","記者","バーテンダー"],
-characters:["疲れた探偵","謎の女","裏社会のボス"],
-events:["殺人事件","失踪事件","裏取引暴露"]
+city:["暗黒都市","雨の港町"],
+architecture:["古い高層ビル","レンガ街区"],
+environment:["夜の雨","霧"],
+society:["犯罪組織","腐敗警察"],
+mood:["陰鬱","孤独"],
+district:["裏路地","旧港区"],
+facility:["探偵事務所","酒場"],
+jobs:["私立探偵","記者"],
+characters:["疲れた探偵","謎の女"],
+events:["殺人事件","失踪事件"]
 }
 
 }
@@ -368,27 +345,51 @@ job.textContent=random(d.jobs)
 character.textContent=random(d.characters)
 event.textContent=random(d.events)
 
-const resultText=
+const text=
 city.textContent+" / "+
 environment.textContent+" / "+
 society.textContent+" / "+
 event.textContent
 
-navigator.clipboard.writeText(resultText)
+navigator.clipboard.writeText(text)
 
-addHistory(resultText)
+saveHistory(text)
 
 }
 
-function addHistory(text){
+function saveHistory(text){
+
+let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
 
 history.unshift(text)
 
-if(history.length>20){
-history.pop()
+if(history.length>30) history.pop()
+
+localStorage.setItem("cityHistory",JSON.stringify(history))
+
 }
 
+function openHistory(){
+
+document.getElementById("mainPage").classList.remove("active")
+document.getElementById("historyPage").classList.add("active")
+
+loadHistory()
+
+}
+
+function closeHistory(){
+
+document.getElementById("historyPage").classList.remove("active")
+document.getElementById("mainPage").classList.add("active")
+
+}
+
+function loadHistory(){
+
 historyList.innerHTML=""
+
+let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
 
 history.forEach((h,i)=>{
 
