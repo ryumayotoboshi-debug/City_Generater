@@ -13,105 +13,112 @@
 <title>City Generator</title>
 
 <style>
-:root{
---main:#00ffff;
---accent:#ff00ff;
+:root {
+  --main: #00ffff;
+  --accent: #ff00ff;
 }
 
-body{
-margin:0;
-background:#020202;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-color:white;
-display:flex;
-justify-content:center;
-align-items:flex-start;
-min-height:100vh;
-text-align:center;
+/* ===== 基本UI ===== */
+body {
+  margin: 0;
+  background: #020202;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  text-align: center;
 }
 
-.container{
-max-width:420px;
-width:100%;
-padding:20px;
-display:flex;
-flex-direction:column;
-gap:14px;
+.container {
+  max-width: 420px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 出力要素との間隔を広げた */
 }
 
-h1{
-font-size:48px;
-color:var(--main);
-text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
+h1 {
+  font-size: 52px; /* タイトルを少し大きく */
+  color: var(--main);
+  text-shadow: 0 0 10px var(--main), 0 0 20px var(--main), 0 0 40px var(--main);
 }
 
-.controls{
-display:flex;
-justify-content:center;
-gap:12px;
-align-items:flex-start;
+/* ===== コントロール ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  align-items: flex-start;
 }
 
-.rightColumn{
-display:flex;
-flex-direction:column;
-gap:8px;
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 縦ボタン間隔 */
 }
 
-button,select{
-font-size:14px;
-padding:8px 16px;
-background:black;
-color:var(--main);
-border:2px solid var(--main);
-border-radius:10px;
-box-shadow:0 0 6px var(--main);
+/* ボタンサイズ調整 */
+button#generateBtn {
+  font-size: 16px;
+  padding: 12px 20px;
 }
 
-.block{
-margin:6px 0;
+button, select {
+  font-size: 14px;
+  padding: 8px 16px;
+  background: black;
+  color: var(--main);
+  border: 2px solid var(--main);
+  border-radius: 10px;
+  box-shadow: 0 0 6px var(--main);
 }
 
-.category{
-font-size:11px;
-letter-spacing:1px;
-color:var(--accent);
+.block {
+  margin: 8px 0; /* 各要素間隔広げた */
 }
 
-.output{
-font-size:17px;
-text-shadow:0 0 6px var(--main);
+.category {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent);
 }
 
-.page{
-display:none;
+.output {
+  font-size: 17px;
+  text-shadow: 0 0 6px var(--main);
 }
 
-.page.active{
-display:block;
+.page {
+  display: none;
 }
 
-.history-item{
-font-size:13px;
-border-bottom:1px solid #333;
-padding:6px;
+.page.active {
+  display: block;
 }
 
-#loading{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:black;
-color:var(--main);
-font-size:24px;
-z-index:9999;
+.history-item {
+  font-size: 13px;
+  border-bottom: 1px solid #333;
+  padding: 6px 0;
 }
 
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: var(--main);
+  font-size: 24px;
+  z-index: 9999;
+}
 </style>
 </head>
 
@@ -125,61 +132,61 @@ z-index:9999;
 <h1>City Generator</h1>
 
 <div class="controls">
-<button onclick="generateCity()">Generate</button>
-<div class="rightColumn">
-<select id="mode" onchange="changeTheme()">
-<option value="cyberpunk">Cyberpunk</option>
-<option value="apocalypse">Post-Apocalypse</option>
-<option value="synthwave">Synthwave</option>
-<option value="noir">Noir</option>
-</select>
-<button onclick="openHistory()">History</button>
-</div>
-</div>
-
-<div class="block">
-<div class="category">建築</div>
-<div class="output" id="architecture"></div>
+  <button id="generateBtn" onclick="generateCity()">Generate</button>
+  <div class="rightColumn">
+    <select id="mode" onchange="changeTheme()">
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="apocalypse">Post-Apocalypse</option>
+      <option value="synthwave">Synthwave</option>
+      <option value="noir">Noir</option>
+    </select>
+    <button onclick="openHistory()">History</button>
+  </div>
 </div>
 
 <div class="block">
-<div class="category">環境</div>
-<div class="output" id="environment"></div>
+  <div class="category">建築</div>
+  <div class="output" id="architecture"></div>
 </div>
 
 <div class="block">
-<div class="category">社会</div>
-<div class="output" id="society"></div>
+  <div class="category">環境</div>
+  <div class="output" id="environment"></div>
 </div>
 
 <div class="block">
-<div class="category">雰囲気</div>
-<div class="output" id="mood"></div>
+  <div class="category">社会</div>
+  <div class="output" id="society"></div>
 </div>
 
 <div class="block">
-<div class="category">地区</div>
-<div class="output" id="district"></div>
+  <div class="category">雰囲気</div>
+  <div class="output" id="mood"></div>
 </div>
 
 <div class="block">
-<div class="category">施設</div>
-<div class="output" id="facility"></div>
+  <div class="category">地区</div>
+  <div class="output" id="district"></div>
 </div>
 
 <div class="block">
-<div class="category">職業</div>
-<div class="output" id="job"></div>
+  <div class="category">施設</div>
+  <div class="output" id="facility"></div>
 </div>
 
 <div class="block">
-<div class="category">主要人物</div>
-<div class="output" id="character"></div>
+  <div class="category">職業</div>
+  <div class="output" id="job"></div>
 </div>
 
 <div class="block">
-<div class="category">事件</div>
-<div class="output" id="event"></div>
+  <div class="category">主要人物</div>
+  <div class="output" id="character"></div>
+</div>
+
+<div class="block">
+  <div class="category">事件</div>
+  <div class="output" id="event"></div>
 </div>
 
 </div>
