@@ -52,21 +52,25 @@ h1 {
 .controls {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch; /* 高さを揃える */
   gap: 20px;
   margin-bottom: 20px;
 }
 
 #generateBtn {
   font-size: 18px;
-  padding: 12px 24px;
+  padding: 12px 0;
+  flex: 1; /* 右カラムの高さに合わせる */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rightColumn {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: stretch; /* 幅を右カラム内で揃える */
 }
 
 button, select {
@@ -77,6 +81,17 @@ button, select {
   border: 2px solid var(--main);
   border-radius: 10px;
   box-shadow: 0 0 6px var(--main);
+  text-align: center;
+  cursor: pointer;
+}
+
+/* サイズ微調整 */
+.rightColumn button, .rightColumn select {
+  width: 120px; /* Generateより小さめに統一 */
+}
+
+#generateBtn {
+  width: 140px; /* Generateボタンを大きく */
 }
 
 /* ===== 出力要素 ===== */
