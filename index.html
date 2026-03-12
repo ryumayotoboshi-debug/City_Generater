@@ -29,8 +29,6 @@ text-align:center;
 
 }
 
-/* コンテナ */
-
 .container{
 
 display:flex;
@@ -45,13 +43,11 @@ gap:20px;
 
 }
 
-/* タイトル */
-
 h1{
 
-font-size:42px;
+font-size:48px;
 
-margin:10px 0 16px 0;
+margin:12px 0 18px 0;
 
 color:#00ffff;
 
@@ -62,18 +58,14 @@ text-shadow:
 
 }
 
-/* 操作 */
-
 .controls{
 
 display:flex;
 gap:10px;
 
-margin-bottom:22px;
+margin-bottom:24px;
 
 }
-
-/* ボタン */
 
 button,select{
 
@@ -93,8 +85,6 @@ box-shadow:0 0 6px #00ffff;
 
 }
 
-/* 結果 */
-
 .result{
 
 width:100%;
@@ -107,15 +97,11 @@ line-height:1.6;
 
 }
 
-/* 各要素 */
-
 .block{
 
-margin-top:14px;
+margin-top:16px;
 
 }
-
-/* カテゴリ */
 
 .category{
 
@@ -130,8 +116,6 @@ text-shadow:
 
 }
 
-/* 出力 */
-
 .output{
 
 font-size:18px;
@@ -142,8 +126,6 @@ text-shadow:
 0 0 6px #00ffff;
 
 }
-
-/* Loading */
 
 #loading{
 
@@ -189,7 +171,6 @@ z-index:9999;
 
 <select id="mode">
 <option value="cyberpunk">Cyberpunk</option>
-<option value="fantasy">Fantasy</option>
 <option value="apocalypse">Post-Apocalypse</option>
 </select>
 
@@ -225,6 +206,18 @@ z-index:9999;
 
 <script>
 
+/* DOM取得 */
+
+const city=document.getElementById("city");
+const architecture=document.getElementById("architecture");
+const environment=document.getElementById("environment");
+const society=document.getElementById("society");
+const mood=document.getElementById("mood");
+const district=document.getElementById("district");
+const locationEl=document.getElementById("location");
+const job=document.getElementById("job");
+const character=document.getElementById("character");
+
 const data={
 
 cyberpunk:{
@@ -237,18 +230,6 @@ district:["ネオン歓楽街","下層スラム","企業本社街","データセ
 location:["違法サイバー改造クリニック","夜市場","AI修理店","地下闘技場"],
 jobs:["ドローン整備士","情報ブローカー","ハッカー","サイバー外科医"],
 characters:["逃亡中のハッカー","企業エージェント","記憶を失ったAI研究者","地下組織のリーダー"]
-},
-
-fantasy:{
-city:["魔法都市","王都","古代都市","浮遊城都市"],
-architecture:["石造塔","魔法塔","城壁都市","古代神殿"],
-environment:["霧の森","永遠の夕暮れ","魔力の風","星空"],
-society:["王国支配","魔術師評議会","神殿統治","貴族都市"],
-mood:["神秘","荘厳","幻想的","静寂"],
-district:["魔術師街","市場広場","神殿区","城壁地区"],
-location:["古代図書館","魔法ギルド","地下迷宮入口","錬金術工房"],
-jobs:["魔術師","錬金術師","傭兵","旅の商人"],
-characters:["放浪の魔術師","王国の騎士","禁書を探す学者","謎の予言者"]
 },
 
 apocalypse:{
@@ -281,7 +262,7 @@ environment.textContent=random(d.environment);
 society.textContent=random(d.society);
 mood.textContent=random(d.mood);
 district.textContent=random(d.district);
-location.textContent=random(d.location);
+locationEl.textContent=random(d.location);
 job.textContent=random(d.jobs);
 character.textContent=random(d.characters);
 
@@ -297,7 +278,7 @@ const text=
 "社会: "+society.textContent+"\n"+
 "雰囲気: "+mood.textContent+"\n"+
 "地区: "+district.textContent+"\n"+
-"施設: "+location.textContent+"\n"+
+"施設: "+locationEl.textContent+"\n"+
 "職業: "+job.textContent+"\n"+
 "主要人物: "+character.textContent;
 
