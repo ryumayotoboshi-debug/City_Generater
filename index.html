@@ -44,7 +44,7 @@ h1{
   display:flex;
   align-items:flex-start;
   gap:12px;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 .left-btns, .right-btns{
   display:flex;
@@ -55,26 +55,32 @@ h1{
   font-size:16px;
   padding:12px;
   width:160px;
-  height:130px; /* 縦の長さを右ボタン2つ分に調整 */
+  height:132px; /* 右2ボタン縦幅に合わせる */
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   line-height:1.2;
-  background:black;color:var(--main);
-  border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
+  background:black;
+  color:var(--main);
+  border:2px solid var(--main);
+  border-radius:10px;
+  box-shadow:0 0 6px var(--main);
 }
 .right-btns button, .right-btns select{
   font-size:14px;
-  padding:8px;
-  width:120px;
+  padding:12px 8px;
+  width:160px;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   line-height:1.2;
-  background:black;color:var(--main);
-  border:2px solid var(--main);border-radius:10px;box-shadow:0 0 6px var(--main);
+  background:black;
+  color:var(--main);
+  border:2px solid var(--main); /* Generateボタンに合わせる */
+  border-radius:10px;
+  box-shadow:0 0 6px var(--main);
 }
 .result{
   width:100%;
@@ -82,14 +88,18 @@ h1{
   line-height:1.4;
 }
 .block{
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 .category{
-  font-size:11px;letter-spacing:1px;color:var(--accent);
+  font-size:11px;
+  letter-spacing:1px;
+  color:var(--accent);
   text-shadow:0 0 6px var(--accent);
 }
 .output{
-  font-size:17px;margin-top:2px;text-shadow:0 0 6px var(--main);
+  font-size:17px;
+  margin-top:2px;
+  text-shadow:0 0 6px var(--main);
 }
 #loading{
   position:fixed;top:0;left:0;width:100%;height:100%;
@@ -106,6 +116,7 @@ h1{
 
 <div class="container">
 <h1>City Generator</h1>
+
 <div class="controls">
   <div class="left-btns">
     <button onclick="generateCity()">Generate</button>
@@ -192,17 +203,12 @@ events:["殺人事件","失踪事件","密輸摘発","暗殺計画","裏社会�
 };
 
 function random(a){return a[Math.floor(Math.random()*a.length)];}
-
-// 履歴保存
 function saveToHistory(resultText){
     let history = JSON.parse(localStorage.getItem("cityHistory") || "[]");
     history.push(resultText);
     localStorage.setItem("cityHistory", JSON.stringify(history));
 }
-
-// 履歴ページ遷移
 function openHistory(){window.location.href="history.html";}
-
 function generateCity(){
     const mode=document.getElementById("mode").value;
     const d=data[mode];
@@ -235,46 +241,22 @@ function changeTheme(){
     if(mode==="cyberpunk"){
         document.documentElement.style.setProperty("--main","#00ffff");
         document.documentElement.style.setProperty("--accent","#ff00ff");
-        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
-          el.style.borderColor="#ff00ff";
-        });
-    }
-    if(mode==="apocalypse"){
+    } else if(mode==="apocalypse"){
         document.documentElement.style.setProperty("--main","#COCOCO");
         document.documentElement.style.setProperty("--accent","#32CD32");
-        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
-          el.style.borderColor="#FFFFFF"; // Post-Apocalypse枠線白
-        });
-    }
-    if(mode==="synthwave"){
+    } else if(mode==="synthwave"){
         document.documentElement.style.setProperty("--main","#FF6EC7");
         document.documentElement.style.setProperty("--accent","#6E00FF");
-        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
-          el.style.borderColor="#6E00FF";
-        });
-    }
-    if(mode==="noir"){
+    } else if(mode==="noir"){
         document.documentElement.style.setProperty("--main","#FFFFFF");
         document.documentElement.style.setProperty("--accent","#AAAAAA");
-        document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
-          el.style.borderColor="#AAAAAA";
-        });
     }
-}
-
-function copyResult(){
-    const text=
-        "建築: "+architecture.textContent+"\n"+
-        "環境: "+environment.textContent+"\n"+
-        "社会: "+society.textContent+"\n"+
-        "雰囲気: "+mood.textContent+"\n"+
-        "地区: "+district.textContent+"\n"+
-        "施設: "+facility.textContent+"\n"+
-        "職業: "+job.textContent+"\n"+
-        "事件: "+incident.textContent+"\n"+
-        "主要人物: "+character.textContent;
-    navigator.clipboard.writeText(text);
-    alert("コピーしました");
+    // 右2ボタンは常にGenerateと同じ色
+    document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
+        el.style.backgroundColor="black";
+        el.style.color=getComputedStyle(document.querySelector('.left-btns button')).color;
+        el.style.borderColor=getComputedStyle(document.querySelector('.left-btns button')).borderColor;
+    });
 }
 
 window.addEventListener("load",function(){
