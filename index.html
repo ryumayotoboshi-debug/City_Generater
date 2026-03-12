@@ -54,8 +54,7 @@ h1{
 .left-btns button{
   font-size:16px;
   width:160px;
-  /* 右2ボタンの高さ合計 + gapに合わせる */
-  height: calc(2 * 48px + 8px); /* 例: 右2ボタン48px＋gap8px */
+  height: calc(2 * 48px + 8px);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -75,7 +74,7 @@ h1{
   display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
+  text-align:center; /* 修正：文字を中央に配置 */
   line-height:1.2;
   background:black;
   color:var(--main);
@@ -147,6 +146,7 @@ h1{
 </div>
 
 <script>
+// 要素取得
 const architecture=document.getElementById("architecture");
 const environment=document.getElementById("environment");
 const society=document.getElementById("society");
@@ -157,6 +157,7 @@ const job=document.getElementById("job");
 const character=document.getElementById("character");
 const incident=document.getElementById("incident");
 
+// ダミーデータ（20個ずつ例）
 const data={
 cyberpunk:{
 architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル","巨大パイプ","空中歩道","地下通路","改造ビル","ホログラム看板","自動運搬パイプ","巨大モニター","サイバーパンク屋台","透明ビル","企業塔","浮遊広告板","ガラスドーム","工業コンプレックス","配線ビル","監視タワー","ドローンポート","人工地盤"],
@@ -213,7 +214,6 @@ function openHistory(){window.location.href="history.html";}
 function generateCity(){
     const mode=document.getElementById("mode").value;
     const d=data[mode];
-
     architecture.textContent=random(d.architecture);
     environment.textContent=random(d.environment);
     society.textContent=random(d.society);
@@ -223,7 +223,6 @@ function generateCity(){
     job.textContent=random(d.jobs);
     character.textContent=random(d.characters);
     incident.textContent=random(d.incidents);
-
     const resultText=
         "建築: "+architecture.textContent+"\n"+
         "環境: "+environment.textContent+"\n"+
@@ -252,13 +251,12 @@ function changeTheme(){
     document.querySelectorAll('.right-btns button, .right-btns select').forEach(el=>{
         el.style.backgroundColor="black";
         el.style.color=getComputedStyle(document.querySelector('.left-btns button')).color;
-        // Post-Apocalypseモードの際は枠線も文字色に合わせる
         el.style.borderColor = (mode==="apocalypse") ? getComputedStyle(el).color : getComputedStyle(document.querySelector('.left-btns button')).borderColor;
     });
 
     // Generateボタン高さを右2ボタンの合計＋gapに合わせる
     const rightBtnContainer = document.querySelector('.right-btns');
-    const gap = 8; // gap:8px
+    const gap = 8;
     const totalHeight = Array.from(rightBtnContainer.children).reduce((sum, el) => sum + el.offsetHeight, 0) + gap;
     document.querySelector('.left-btns button').style.height = totalHeight + "px";
 }
