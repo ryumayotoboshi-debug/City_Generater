@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 
@@ -15,81 +14,62 @@
 <title>City Generator</title>
 
 <style>
-
 :root{
 --main:#00ffff;
 --accent:#ff00ff;
 }
 
 body{
-
 margin:0;
 background:#020202;
-
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-
 color:white;
-
 display:flex;
 justify-content:center;
 align-items:flex-start;
-
 min-height:100vh;
-
 text-align:center;
-
 }
 
 .container{
-
 max-width:420px;
 width:100%;
-
 padding:20px;
-
 display:flex;
 flex-direction:column;
-
 gap:14px;
-
 }
 
 h1{
-
 font-size:48px;
-
 color:var(--main);
-
 text-shadow:
 0 0 10px var(--main),
 0 0 20px var(--main),
 0 0 40px var(--main);
-
-}
-
-button,select{
-
-font-size:14px;
-
-padding:8px 16px;
-
-background:black;
-
-color:var(--main);
-
-border:2px solid var(--main);
-
-border-radius:10px;
-
-box-shadow:0 0 6px var(--main);
-
 }
 
 .controls{
 display:flex;
-gap:8px;
 justify-content:center;
-flex-wrap:wrap;
+gap:12px;
+align-items:flex-start;
+}
+
+.buttonColumn{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+button,select{
+font-size:14px;
+padding:8px 16px;
+background:black;
+color:var(--main);
+border:2px solid var(--main);
+border-radius:10px;
+box-shadow:0 0 6px var(--main);
 }
 
 .block{
@@ -97,21 +77,14 @@ margin:6px 0;
 }
 
 .category{
-
 font-size:11px;
-
 letter-spacing:1px;
-
 color:var(--accent);
-
 }
 
 .output{
-
 font-size:17px;
-
 text-shadow:0 0 6px var(--main);
-
 }
 
 .page{
@@ -123,36 +96,24 @@ display:block;
 }
 
 .history-item{
-
 font-size:13px;
-
 border-bottom:1px solid #333;
-
 padding:6px;
-
 }
 
 #loading{
-
 position:fixed;
 top:0;
 left:0;
-
 width:100%;
 height:100%;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 background:black;
-
 color:var(--main);
-
 font-size:24px;
-
 z-index:9999;
-
 }
 
 </style>
@@ -166,25 +127,23 @@ z-index:9999;
 <div class="container">
 
 <!-- MAIN PAGE -->
-
 <div id="mainPage" class="page active">
 
 <h1>City Generator</h1>
 
 <div class="controls">
 
-<select id="mode" onchange="changeTheme()">
+<div class="buttonColumn">
+<button onclick="generateCity()">Generate</button>
+<button onclick="openHistory()">History</button>
+</div>
 
+<select id="mode" onchange="changeTheme()">
 <option value="cyberpunk">Cyberpunk</option>
 <option value="apocalypse">Post-Apocalypse</option>
 <option value="synthwave">Synthwave</option>
 <option value="noir">Noir</option>
-
 </select>
-
-<button onclick="generateCity()">Generate</button>
-
-<button onclick="openHistory()">History</button>
 
 </div>
 
@@ -241,21 +200,15 @@ z-index:9999;
 </div>
 
 <!-- HISTORY PAGE -->
-
 <div id="historyPage" class="page">
-
 <h1>History</h1>
-
 <button onclick="closeHistory()">Back</button>
-
 <div id="historyList"></div>
-
 </div>
 
 </div>
 
 <script>
-
 const city=document.getElementById("city")
 const architecture=document.getElementById("architecture")
 const environment=document.getElementById("environment")
@@ -266,11 +219,9 @@ const facility=document.getElementById("facility")
 const job=document.getElementById("job")
 const character=document.getElementById("character")
 const event=document.getElementById("event")
-
 const historyList=document.getElementById("historyList")
 
 const data={
-
 cyberpunk:{
 city:["地下都市","浮遊都市","巨大企業都市","ネオン港湾都市"],
 architecture:["ネオン広告","巨大ホログラム","ガラス高層ビル"],
@@ -283,7 +234,6 @@ jobs:["ハッカー","情報ブローカー","サイバー外科医"],
 characters:["逃亡ハッカー","企業エージェント","地下組織リーダー"],
 events:["AI暴走","企業データ盗難","サイバー犯罪"]
 },
-
 apocalypse:{
 city:["廃墟都市","地下避難都市","要塞都市"],
 architecture:["崩壊ビル","鉄の要塞","廃工場"],
@@ -296,7 +246,6 @@ jobs:["スカベンジャー","交易商"],
 characters:["孤独な探索者","元軍人"],
 events:["資源争奪","集落襲撃"]
 },
-
 synthwave:{
 city:["ネオン海岸都市","ホログラム都市"],
 architecture:["ネオン高層ビル","グリッド道路"],
@@ -309,7 +258,6 @@ jobs:["DJ","ホログラムデザイナー"],
 characters:["孤独なドライバー","ネオンアーティスト"],
 events:["ライブハッキング","ホログラム暴走"]
 },
-
 noir:{
 city:["暗黒都市","雨の港町"],
 architecture:["古い高層ビル","レンガ街区"],
@@ -322,15 +270,11 @@ jobs:["私立探偵","記者"],
 characters:["疲れた探偵","謎の女"],
 events:["殺人事件","失踪事件"]
 }
-
 }
 
-function random(a){
-return a[Math.floor(Math.random()*a.length)]
-}
+function random(a){return a[Math.floor(Math.random()*a.length)]}
 
 function generateCity(){
-
 const mode=document.getElementById("mode").value
 const d=data[mode]
 
@@ -352,92 +296,55 @@ society.textContent+" / "+
 event.textContent
 
 navigator.clipboard.writeText(text)
-
 saveHistory(text)
-
 }
 
 function saveHistory(text){
-
 let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
-
 history.unshift(text)
-
 if(history.length>30) history.pop()
-
 localStorage.setItem("cityHistory",JSON.stringify(history))
-
 }
 
 function openHistory(){
-
 document.getElementById("mainPage").classList.remove("active")
 document.getElementById("historyPage").classList.add("active")
-
 loadHistory()
-
 }
 
 function closeHistory(){
-
 document.getElementById("historyPage").classList.remove("active")
 document.getElementById("mainPage").classList.add("active")
-
 }
 
 function loadHistory(){
-
 historyList.innerHTML=""
-
 let history=JSON.parse(localStorage.getItem("cityHistory")||"[]")
-
 history.forEach((h,i)=>{
-
 const div=document.createElement("div")
 div.className="history-item"
 div.textContent=(i+1)+". "+h
-
 historyList.appendChild(div)
-
 })
-
 }
 
 function changeTheme(){
-
 const mode=document.getElementById("mode").value
-
-if(mode==="cyberpunk"){
-document.documentElement.style.setProperty("--main","#00ffff")
-document.documentElement.style.setProperty("--accent","#ff00ff")
-}
-
-if(mode==="apocalypse"){
-document.documentElement.style.setProperty("--main","#C0C0C0")
-document.documentElement.style.setProperty("--accent","#32CD32")
-}
-
-if(mode==="synthwave"){
-document.documentElement.style.setProperty("--main","#ff2bd6")
-document.documentElement.style.setProperty("--accent","#ff8c00")
-}
-
-if(mode==="noir"){
-document.documentElement.style.setProperty("--main","#ffffff")
-document.documentElement.style.setProperty("--accent","#888888")
-}
-
+if(mode==="cyberpunk"){document.documentElement.style.setProperty("--main","#00ffff")
+document.documentElement.style.setProperty("--accent","#ff00ff")}
+if(mode==="apocalypse"){document.documentElement.style.setProperty("--main","#C0C0C0")
+document.documentElement.style.setProperty("--accent","#32CD32")}
+if(mode==="synthwave"){document.documentElement.style.setProperty("--main","#ff2bd6")
+document.documentElement.style.setProperty("--accent","#ff8c00")}
+if(mode==="noir"){document.documentElement.style.setProperty("--main","#ffffff")
+document.documentElement.style.setProperty("--accent","#888888")}
 }
 
 window.addEventListener("load",function(){
-
 document.getElementById("loading").style.display="none"
-
 changeTheme()
 generateCity()
-
 })
-
 </script>
 
 </body>
