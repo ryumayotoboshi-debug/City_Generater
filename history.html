@@ -73,6 +73,37 @@ padding:8px 14px;
 
 }
 
+.back-button{
+
+position:fixed;
+top:20px;
+left:20px;
+
+width:180px;
+height:56px;
+
+font-size:18px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:black;
+color:var(--main);
+
+border:2px solid var(--main);
+border-radius:10px;
+
+box-shadow:0 0 6px var(--main);
+
+z-index:1000;
+
+}
+
+.back-button:hover{
+box-shadow:0 0 12px var(--main);
+}
+
 </style>
 
 </head>
@@ -83,7 +114,7 @@ padding:8px 14px;
 
 <div id="historyContainer"></div>
 
-<button onclick="window.history.back()">戻る</button>
+<button class="back-button" onclick="window.history.back()">戻る</button>
 
 <script>
 function formatMode(mode){
