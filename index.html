@@ -281,7 +281,7 @@ district:["生存者市場","防衛区","廃墟地区","資源採掘区","壊れ
 facility:["旧軍事基地","水浄化施設","物資倉庫","地下シェルター","廃棄病院","地下工場","補給所","燃料貯蔵庫","生存者キャンプ","武器庫","通信施設","医療テント","交易所","防衛塔","監視施設","避難所","地下倉庫","廃線施設","鉱山施設","資源加工所"],
 jobs:["スカベンジャー","メカニック","警備兵","交易商","傭兵","探索者","交易管理者","防衛隊員","資源採掘者","廃墟研究者","放浪者","補給担当","偵察者","火器整備士","医療担当","通信士","サバイバル技師","情報屋","集落リーダー","放射線調査員"],
 characters:["孤独な探索者","集落のリーダー","元軍人","失われた都市を探す学者","傭兵隊長","放浪者","交易管理者","廃墟研究者","探索者チームリーダー","医療担当者","補給管理者","警備隊員","偵察者","資源採掘者","通信士","火器整備士","サバイバル技師","密輸組織メンバー","廃墟サバイバル者","放射線調査官"],
-events:["資源争奪","集落襲撃","食料奪取","傭兵抗争","放射能汚染事故","襲撃事件","地下シェルター侵入","武器庫強奪","交易妨害","住民反乱","避難者救出","情報戦争","廃墟防衛戦","放棄施設襲撃","略奪事件","探索隊失踪","資源輸送破壊","軍事占拠","集落火災","鉱山事故"]
+incidents:["資源争奪","集落襲撃","食料奪取","傭兵抗争","放射能汚染事故","襲撃事件","地下シェルター侵入","武器庫強奪","交易妨害","住民反乱","避難者救出","情報戦争","廃墟防衛戦","放棄施設襲撃","略奪事件","探索隊失踪","資源輸送破壊","軍事占拠","集落火災","鉱山事故"]
 },
 synthwave:{
     architecture:["ネオン高層ビル","グリッド道路","ホログラムタワー","光ファイバー橋","シンセビル","浮遊歩道","レーザー看板","光学スタジオ","アーケードセンター","ネオンモール","ホログラムアパート","レトロカフェ","光線タワー","未来商店街","サイバービル街","VRスタジオ","ネオン橋梁","浮遊広告塔","光路地","シンセ住宅"],
@@ -330,6 +330,7 @@ const d = data[currentMode];
 if(!d){
 console.error("モードデータが見つかりません:", currentMode);
 return;
+}
 
 architecture.textContent=random(d.architecture)
 environment.textContent=random(d.environment)
@@ -394,26 +395,13 @@ generateCity()
 <script>
 
 if ("serviceWorker" in navigator) {
+
 window.addEventListener("load", () => {
-navigator.serviceWorker.register("sw.js");
-});
-}
 
-if(registration.waiting){
-registration.waiting.postMessage({type:"SKIP_WAITING"});
-}
+navigator.serviceWorker.register("sw.js")
+.then(registration => {
 
-registration.addEventListener("updatefound", () => {
-
-const newWorker = registration.installing;
-
-newWorker.addEventListener("statechange", () => {
-
-if(newWorker.state === "installed"){
-location.reload();
-}
-
-});
+console.log("ServiceWorker registered");
 
 });
 
