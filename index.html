@@ -131,6 +131,37 @@ margin-top:2px;
 text-shadow:0 0 6px var(--main);
 }
 
+.city-card{
+
+margin-top:20px;
+padding:16px;
+
+border:2px solid var(--main);
+border-radius:12px;
+
+background:rgba(0,0,0,0.6);
+
+box-shadow:
+0 0 10px var(--main),
+0 0 20px rgba(0,0,0,0.8);
+
+font-size:14px;
+line-height:1.6;
+
+}
+
+.city-card-title{
+
+font-size:20px;
+margin-bottom:10px;
+
+color:var(--accent);
+
+text-shadow:
+0 0 6px var(--accent);
+
+}
+
 </style>
 </head>
 
@@ -182,6 +213,8 @@ Cyberpunk
 </div>
 
 </div>
+
+<div id="cityCard" class="city-card" style="display:none;"></div>
 
 <script>
 
@@ -281,6 +314,32 @@ localStorage.setItem("cityHistory", JSON.stringify(history));
 
 }
 
+function createCityCard(city){
+
+const card=document.getElementById("cityCard");
+
+card.style.display="block";
+
+card.innerHTML=`
+
+<div class="city-card-title">
+${city.mode} City
+</div>
+
+建築: ${city.architecture}<br>
+環境: ${city.environment}<br>
+社会: ${city.society}<br>
+雰囲気: ${city.mood}<br>
+地区: ${city.district}<br>
+施設: ${city.facility}<br>
+職業: ${city.job}<br>
+人物: ${city.character}<br>
+事件: ${city.incident}<br>
+
+`;
+
+}
+
 function generateCity(){
 
 const d=data[currentMode]
@@ -310,6 +369,7 @@ time: new Date().toLocaleString()
 };
 
 saveHistory(city);
+createCityCard(city);
 }
 
 function changeTheme(){
