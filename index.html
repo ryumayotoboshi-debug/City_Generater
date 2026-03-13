@@ -3,172 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#000000">
-<link rel="apple-touch-icon" sizes="180x180" href="IMG_5995.png">
-<link rel="icon" type="image/png" href="IMG_5995.png">
 <title>City Generator</title>
 
 <style>
+
 :root{
-  --main:#00ffff;
-  --accent:#ff00ff;
+--main:#00ffff;
+--accent:#ff00ff;
 }
 
 body{
-  margin:0;
-  background:#020202;
-  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  text-align:center;
-  overflow:hidden;
+margin:0;
+background:#020202;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+overflow:hidden;
 }
 
 .container{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  max-width:420px;
-  padding:16px;
-  gap:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+max-width:420px;
+padding:16px;
+gap:12px;
 }
 
 h1{
-  font-size:56px;
-  margin:8px 0 14px 0;
-  color:var(--main);
-  text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
+font-size:56px;
+margin:8px 0 14px 0;
+color:var(--main);
+text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
 }
 
 .controls{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  margin-bottom:20px;
+display:flex;
+gap:12px;
+margin-bottom:20px;
 }
 
-.left-btns, .right-btns{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+.left-btns{
+display:flex;
+flex-direction:column;
 }
 
-.left-btns button{
-  font-size:16px;
-  width:160px;
-  height: calc(2 * 48px + 8px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:black;
-  color:var(--main);
-  border:2px solid var(--main);
-  border-radius:10px;
-  box-shadow:0 0 6px var(--main);
+.right-btns{
+display:flex;
+flex-direction:column;
+gap:8px;
+position:relative;
 }
 
-.right-btns button{
-  font-size:14px;
-  padding:12px 8px;
-  width:160px;
-  height:48px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:black;
-  color:var(--main);
-  border:2px solid var(--main);
-  border-radius:10px;
-  box-shadow:0 0 6px var(--main);
+button{
+font-size:14px;
+width:160px;
+height:48px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:black;
+color:var(--main);
+border:2px solid var(--main);
+border-radius:10px;
+box-shadow:0 0 6px var(--main);
 }
 
-/* selectを完全に中央揃えにする */
-.right-btns select{
-  font-size:14px;
-  width:160px;
-  height:48px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  line-height:48px; /* 高さと揃える */
-  background-color:black;
-  color:var(--main);
-  border:2px solid var(--main);
-  border-radius:10px;
-  box-shadow:0 0 6px var(--main);
-  -webkit-appearance:none;  /* iOS用 */
-  -moz-appearance:none;     /* Firefox用 */
-  appearance:none;          /* 標準 */
-  padding:0;
+#generateBtn{
+height:104px;
+font-size:16px;
 }
 
-/* ▼オプションで矢印非表示 */
-.right-btns select::-ms-expand { display: none; } /* IE */
-.right-btns select::-webkit-inner-spin-button,
-.right-btns select::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.dropdown{
+display:none;
+position:absolute;
+top:50px;
+left:0;
+width:160px;
+background:black;
+border:2px solid var(--main);
+border-radius:10px;
+box-shadow:0 0 10px var(--main);
+flex-direction:column;
+z-index:10;
+}
+
+.dropdown div{
+padding:10px;
+cursor:pointer;
+}
+
+.dropdown div:hover{
+background:var(--main);
+color:black;
+}
 
 .result{
-  width:100%;
-  font-size:14px;
-  line-height:1.4;
+width:100%;
+font-size:14px;
+line-height:1.4;
 }
 
 .block{
-  margin-bottom:4px;
+margin-bottom:4px;
 }
 
 .category{
-  font-size:11px;
-  letter-spacing:1px;
-  color:var(--accent);
-  text-shadow:0 0 6px var(--accent);
+font-size:11px;
+letter-spacing:1px;
+color:var(--accent);
+text-shadow:0 0 6px var(--accent);
 }
 
 .output{
-  font-size:17px;
-  margin-top:2px;
-  text-shadow:0 0 6px var(--main);
+font-size:17px;
+margin-top:2px;
+text-shadow:0 0 6px var(--main);
 }
 
-#loading{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  background:black;color:var(--main);
-  font-size:24px;text-shadow:0 0 10px var(--main),0 0 30px var(--main);
-  z-index:9999;
-}
 </style>
 </head>
 
 <body>
-<div id="loading">Loading...</div>
 
 <div class="container">
+
 <h1>City Generator</h1>
 
 <div class="controls">
-  <div class="left-btns">
-    <button id="generateBtn" onclick="generateCity()">Generate</button>
-  </div>
-  <div class="right-btns">
-    <select id="mode" onchange="changeTheme()">
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="apocalypse">Post-Apocalypse</option>
-      <option value="synthwave">Synthwave</option>
-      <option value="noir">Noir</option>
-    </select>
-    <button onclick="openHistory()">History</button>
-  </div>
+
+<div class="left-btns">
+<button id="generateBtn" onclick="generateCity()">Generate</button>
+</div>
+
+<div class="right-btns">
+
+<button onclick="toggleDropdown()" id="modeButton">
+Cyberpunk
+</button>
+
+<button onclick="openHistory()">History</button>
+
+<div class="dropdown" id="modeDropdown">
+
+<div onclick="setMode('cyberpunk')">Cyberpunk</div>
+<div onclick="setMode('apocalypse')">Post-Apocalypse</div>
+<div onclick="setMode('synthwave')">Synthwave</div>
+<div onclick="setMode('noir')">Noir</div>
+
+</div>
+
+</div>
+
 </div>
 
 <div class="result">
+
 <div class="block"><div class="category">建築</div><div class="output" id="architecture"></div></div>
 <div class="block"><div class="category">環境</div><div class="output" id="environment"></div></div>
 <div class="block"><div class="category">社会</div><div class="output" id="society"></div></div>
@@ -178,19 +173,48 @@ h1{
 <div class="block"><div class="category">職業</div><div class="output" id="job"></div></div>
 <div class="block"><div class="category">事件</div><div class="output" id="incident"></div></div>
 <div class="block"><div class="category">主要人物</div><div class="output" id="character"></div></div>
+
 </div>
+
 </div>
 
 <script>
-const architecture=document.getElementById("architecture");
-const environment=document.getElementById("environment");
-const society=document.getElementById("society");
-const mood=document.getElementById("mood");
-const district=document.getElementById("district");
-const facility=document.getElementById("facility");
-const job=document.getElementById("job");
-const character=document.getElementById("character");
-const incident=document.getElementById("incident");
+
+let currentMode="cyberpunk"
+
+function toggleDropdown(){
+
+const menu=document.getElementById("modeDropdown")
+
+menu.style.display=
+menu.style.display==="flex"
+? "none"
+: "flex"
+
+}
+
+function setMode(mode){
+
+currentMode=mode
+
+document.getElementById("modeButton").innerText=
+mode.charAt(0).toUpperCase()+mode.slice(1)
+
+document.getElementById("modeDropdown").style.display="none"
+
+changeTheme()
+
+}
+
+function openHistory(){
+
+window.location.href="history.html"
+
+}
+
+function random(a){
+return a[Math.floor(Math.random()*a.length)]
+}
 
 const data={
 cyberpunk:{
@@ -238,55 +262,34 @@ characters:["疲れた探偵","謎の女","暗黒組織リーダー","密輸屋�
 events:["殺人事件","失踪事件","密輸摘発","暗殺計画","裏社会抗争","盗難事件","夜の対立","情報漏洩","バー抗争","路地裏襲撃","警察腐敗事件","犯罪計画発覚","影の暗殺","古書店盗難","秘密倉庫強奪","探偵追跡事件","霧の港事件","暗黒ラウンジ襲撃","夜霧の殺人","裏路地強盗"]}
 };
 
-function random(a){return a[Math.floor(Math.random()*a.length)];}
-function saveToHistory(resultText){
-    let history = JSON.parse(localStorage.getItem("cityHistory") || "[]");
-    history.push(resultText);
-    localStorage.setItem("cityHistory", JSON.stringify(history));
-}
-function openHistory(){window.location.href="history.html";}
 function generateCity(){
-    const mode=document.getElementById("mode").value;
-    const d=data[mode];
-    architecture.textContent=random(d.architecture);
-    environment.textContent=random(d.environment);
-    society.textContent=random(d.society);
-    mood.textContent=random(d.mood);
-    district.textContent=random(d.district);
-    facility.textContent=random(d.facility);
-    job.textContent=random(d.jobs);
-    character.textContent=random(d.characters);
-    incident.textContent=random(d.incidents);
-    const resultText=
-        "建築: "+architecture.textContent+"\n"+
-        "環境: "+environment.textContent+"\n"+
-        "社会: "+society.textContent+"\n"+
-        "雰囲気: "+mood.textContent+"\n"+
-        "地区: "+district.textContent+"\n"+
-        "施設: "+facility.textContent+"\n"+
-        "職業: "+job.textContent+"\n"+
-        "事件: "+incident.textContent+"\n"+
-        "主要人物: "+character.textContent;
-    saveToHistory(resultText);
+
+const d=data[currentMode]
+
+architecture.textContent=random(d.architecture)
+environment.textContent=random(d.environment)
+society.textContent=random(d.society)
+mood.textContent=random(d.mood)
+district.textContent=random(d.district)
+facility.textContent=random(d.facility)
+job.textContent=random(d.jobs)
+character.textContent=random(d.characters)
+incident.textContent=random(d.incidents)
+
 }
 
 function changeTheme(){
-    const mode=document.getElementById("mode").value;
-    let mainColor="", accentColor="";
-    if(mode==="cyberpunk"){ mainColor="#00ffff"; accentColor="#ff00ff"; }
-    else if(mode==="apocalypse"){ mainColor="#ffffff"; accentColor="#32CD32"; }
-    else if(mode==="synthwave"){ mainColor="#FF6EC7"; accentColor="#6E00FF"; }
-    else if(mode==="noir"){ mainColor="#FFFFFF"; accentColor="#AAAAAA"; }
-    
-    document.documentElement.style.setProperty("--main",mainColor);
-    document.documentElement.style.setProperty("--accent",accentColor);
+
+if(currentMode==="cyberpunk"){
+document.documentElement.style.setProperty("--main","#00ffff")
+document.documentElement.style.setProperty("--accent","#ff00ff")
 }
 
-window.addEventListener("load",function(){
-    document.getElementById("loading").style.display="none";
-    changeTheme();
-    generateCity();
-});
+}
+
+generateCity()
+
 </script>
+
 </body>
 </html>
