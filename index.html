@@ -88,7 +88,7 @@ h1{
   box-shadow:0 0 6px var(--main);
 }
 
-/* selectを中央揃え（矢印なし） */
+/* selectを完全に中央揃えにする */
 .right-btns select{
   font-size:14px;
   width:160px;
@@ -97,16 +97,23 @@ h1{
   justify-content:center;
   align-items:center;
   text-align:center;
+  line-height:48px; /* 高さと揃える */
   background-color:black;
   color:var(--main);
   border:2px solid var(--main);
   border-radius:10px;
   box-shadow:0 0 6px var(--main);
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
+  -webkit-appearance:none;  /* iOS用 */
+  -moz-appearance:none;     /* Firefox用 */
+  appearance:none;          /* 標準 */
   padding:0;
 }
+
+/* ▼オプションで矢印非表示 */
+.right-btns select::-ms-expand { display: none; } /* IE */
+.right-btns select::-webkit-inner-spin-button,
+.right-btns select::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
 .result{
   width:100%;
   font-size:14px;
