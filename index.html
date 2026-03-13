@@ -220,8 +220,6 @@ Cyberpunk
 
 </div>
 
-<div id="cityCard" class="city-card" style="display:none;"></div>
-
 </div>
 
 <script>
@@ -322,31 +320,7 @@ localStorage.setItem("cityHistory", JSON.stringify(history));
 
 }
 
-function createCityCard(city){
 
-const card=document.getElementById("cityCard");
-
-card.style.display="block";
-
-card.innerHTML=`
-
-<div class="city-card-title">
-${city.mode} City
-</div>
-
-建築: ${city.architecture}<br>
-環境: ${city.environment}<br>
-社会: ${city.society}<br>
-雰囲気: ${city.mood}<br>
-地区: ${city.district}<br>
-施設: ${city.facility}<br>
-職業: ${city.job}<br>
-人物: ${city.character}<br>
-事件: ${city.incident}<br>
-
-`;
-
-}
 
 function generateCity(){
 
@@ -376,8 +350,6 @@ mode: currentMode,
 time: new Date().toLocaleString()
 };
 
-saveHistory(city);
-createCityCard(city);
 }
 
 function changeTheme(){
