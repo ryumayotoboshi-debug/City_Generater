@@ -52,6 +52,37 @@ gap:12px;
 margin-bottom:20px;
 }
 
+.back-button{
+
+position:fixed;
+top:20px;
+left:20px;
+
+width:160px;
+height:48px;
+
+font-size:16px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:black;
+color:var(--main);
+
+border:2px solid var(--main);
+border-radius:10px;
+
+box-shadow:0 0 6px var(--main);
+
+z-index:100;
+
+}
+
+.back-button:hover{
+box-shadow:0 0 12px var(--main);
+}
+
 .left-btns{
 display:flex;
 flex-direction:column;
@@ -180,6 +211,10 @@ text-shadow:
 <h1>City Generator</h1>
 
 <div class="controls">
+
+<div class ="back-button">
+<button class="back-button" onclick="window.history.back()">戻る</button>
+</div>
 
 <div class="left-btns">
 <button id="generateBtn" onclick="generateCity()">Generate</button>
