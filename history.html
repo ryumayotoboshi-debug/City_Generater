@@ -66,6 +66,21 @@ line-height:1.6;
 
 }
 
+.card-grid{
+
+display:flex;
+justify-content:space-between;
+
+gap:20px;
+
+}
+
+.card-col{
+
+width:48%;
+
+}
+
 .mode{
 
 color:#ff00ff;
@@ -179,15 +194,24 @@ card.innerHTML=`
 
 <div class="mode">${formatMode(item.mode)} City</div>
 
+<div class="card-grid">
+
+<div class="card-col">
 建築: ${item.architecture}<br>
 環境: ${item.environment}<br>
 社会: ${item.society}<br>
 雰囲気: ${item.mood}<br>
-地区: ${item.district}<br>
+地区: ${item.district}
+</div>
+
+<div class="card-col">
 施設: ${item.facility}<br>
 職業: ${item.job}<br>
 人物: ${item.character}<br>
 事件: ${item.incident}
+</div>
+
+</div>
 
 <div class="time">${item.time}</div>
 
