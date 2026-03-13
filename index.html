@@ -65,7 +65,6 @@ h1{
   justify-content:center;
   align-items:center;
   text-align:center;
-  line-height:1.2;
   background:black;
   color:var(--main);
   border:2px solid var(--main);
@@ -82,7 +81,6 @@ h1{
   justify-content:center;
   align-items:center;
   text-align:center;
-  line-height:1.2;
   background:black;
   color:var(--main);
   border:2px solid var(--main);
@@ -90,21 +88,16 @@ h1{
   box-shadow:0 0 6px var(--main);
 }
 
-/* selectを中央揃え（モバイル対応版） */
+/* selectを中央揃え（矢印なし） */
 .right-btns select{
   font-size:14px;
   width:160px;
   height:48px;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
-  padding:0 32px 0 0; /* 右側に矢印スペース */
   background-color:black;
-  background-image:url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat:no-repeat;
-  background-position:right 8px center;
-  background-size:12px;
   color:var(--main);
   border:2px solid var(--main);
   border-radius:10px;
@@ -112,8 +105,8 @@ h1{
   -webkit-appearance:none;
   -moz-appearance:none;
   appearance:none;
+  padding:0;
 }
-
 .result{
   width:100%;
   font-size:14px;
@@ -182,7 +175,6 @@ h1{
 </div>
 
 <script>
-// 要素取得
 const architecture=document.getElementById("architecture");
 const environment=document.getElementById("environment");
 const society=document.getElementById("society");
