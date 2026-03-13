@@ -86,7 +86,17 @@ padding:8px 14px;
 <button onclick="window.history.back()">戻る</button>
 
 <script>
+function formatMode(mode){
 
+if(mode === "cyberpunk") return "Cyberpunk";
+if(mode === "apocalypse") return "Post-Apocalypse";
+if(mode === "synthwave") return "Synthwave";
+if(mode === "noir") return "Noir";
+
+return mode;
+
+}
+  
 window.addEventListener("load", function(){
 
 const history = JSON.parse(localStorage.getItem("cityHistory") || "[]");
@@ -109,7 +119,7 @@ card.className="card";
 
 card.innerHTML=`
 
-<div class="mode">${item.mode} City</div>
+<div class="mode">${formatMode(item.mode)} City</div>
 
 建築: ${item.architecture}<br>
 環境: ${item.environment}<br>
