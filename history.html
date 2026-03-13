@@ -25,6 +25,18 @@ padding:20px;
 
 }
 
+.header{
+
+position:relative;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+height:80px;
+
+}
+
 h1{
 
 text-align:center;
@@ -83,7 +95,7 @@ padding:8px 14px;
 
 .back-button{
 
-position:fixed;
+position:absolute;
 top:20px;
 left:20px;
 
@@ -118,11 +130,15 @@ box-shadow:0 0 12px var(--main);
 
 <body>
 
-<h1>生成履歴</h1>
-
-<div id="historyContainer"></div>
+<div class="header">
 
 <button class="back-button" onclick="window.history.back()">戻る</button>
+
+<h1>生成履歴</h1>
+
+</div>
+
+<div id="historyContainer"></div>
 
 <script>
 function formatMode(mode){
