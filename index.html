@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- アイコン設定 -->
+<link rel="apple-touch-icon" sizes="180x180" href="IMG_5995.png">
+<link rel="icon" type="image/png" href="IMG_5995.png">
+
 <title>City Generator</title>
 
 <style>
@@ -283,6 +288,21 @@ function changeTheme(){
 if(currentMode==="cyberpunk"){
 document.documentElement.style.setProperty("--main","#00ffff")
 document.documentElement.style.setProperty("--accent","#ff00ff")
+}
+
+if(currentMode==="apocalypse"){
+document.documentElement.style.setProperty("--main","#ffffff")
+document.documentElement.style.setProperty("--accent","#8aff00")
+}
+
+if(currentMode==="synthwave"){
+document.documentElement.style.setProperty("--main","#ff71ce")
+document.documentElement.style.setProperty("--accent","#01cdfe")
+}
+
+if(currentMode==="noir"){
+document.documentElement.style.setProperty("--main","#dddddd")
+document.documentElement.style.setProperty("--accent","#888888")
 }
 
 }
