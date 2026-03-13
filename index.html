@@ -310,10 +310,10 @@ function saveHistory(city){
 
 let history = JSON.parse(localStorage.getItem("cityHistory") || "[]");
 
-history.unshift(city);
+history.unshift(city); // 新しいものを先頭に追加
 
 if(history.length > 50){
-history.pop();
+history.pop(); // 50件以上なら古いもの削除
 }
 
 localStorage.setItem("cityHistory", JSON.stringify(history));
@@ -337,6 +337,7 @@ character.textContent=random(d.characters)
 incident.textContent=random(d.incidents)
 
 const city = {
+
 architecture: architecture.textContent,
 environment: environment.textContent,
 society: society.textContent,
@@ -348,7 +349,10 @@ character: character.textContent,
 incident: incident.textContent,
 mode: currentMode,
 time: new Date().toLocaleString()
-};
+
+}
+
+saveHistory(city);
 
 }
 
