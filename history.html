@@ -29,14 +29,19 @@ margin-bottom:20px;
 .card{
 
 border:2px solid #00ffff;
-
 border-radius:12px;
 
-padding:12px;
+padding:16px;
 
-margin-bottom:16px;
+margin-bottom:20px;
 
 background:rgba(0,0,0,0.6);
+
+box-shadow:
+0 0 10px #00ffff,
+0 0 20px rgba(0,0,0,0.8);
+
+line-height:1.6;
 
 }
 
@@ -104,7 +109,7 @@ card.className="card";
 
 card.innerHTML=`
 
-<div class="mode">${index+1}. ${item.mode}</div>
+<div class="mode">${item.mode} City</div>
 
 建築: ${item.architecture}<br>
 環境: ${item.environment}<br>
@@ -114,7 +119,7 @@ card.innerHTML=`
 施設: ${item.facility}<br>
 職業: ${item.job}<br>
 人物: ${item.character}<br>
-事件: ${item.incident}<br>
+事件: ${item.incident}
 
 <div class="time">${item.time}</div>
 
