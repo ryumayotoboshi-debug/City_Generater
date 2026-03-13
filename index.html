@@ -324,7 +324,11 @@ localStorage.setItem("cityHistory", JSON.stringify(history));
 
 function generateCity(){
 
-const d=data[currentMode]
+const d = data[currentMode];
+
+if(!d){
+console.error("モードデータが見つかりません:", currentMode);
+return;
 
 architecture.textContent=random(d.architecture)
 environment.textContent=random(d.environment)
@@ -389,9 +393,32 @@ generateCity()
 <script>
 
 if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker.register("sw.js");
+
+window.addEventListener("load", async () => {
+
+const registration =
+await navigator.serviceWorker.register("sw.js");
+
+if(registration.waiting){
+registration.waiting.postMessage({type:"SKIP_WAITING"});
+}
+
+registration.addEventListener("updatefound", () => {
+
+const newWorker = registration.installing;
+
+newWorker.addEventListener("statechange", () => {
+
+if(newWorker.state === "installed"){
+location.reload();
+}
+
 });
+
+});
+
+});
+
 }
 
 </script>
