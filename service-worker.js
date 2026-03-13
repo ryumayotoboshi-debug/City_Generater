@@ -4,7 +4,7 @@ caches.open("app-cache").then(function(cache) {
 return cache.addAll([
 "/",
 "/index.html",
-"/IMG_4351.jpeg"
+"/IMG_5995.png"
 ]);
 })
 );
