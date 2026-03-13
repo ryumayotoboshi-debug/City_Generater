@@ -77,8 +77,13 @@ gap:20px;
 
 .card-col{
 
-width:48%;
+width:50%;
+padding-left:20px;
 
+}
+
+.card-col b{
+color:var(--accent);
 }
 
 .mode{
@@ -197,11 +202,11 @@ card.innerHTML=`
 <div class="card-grid">
 
 <div class="card-col">
-建築: ${item.architecture}<br>
-環境: ${item.environment}<br>
-社会: ${item.society}<br>
-雰囲気: ${item.mood}<br>
-地区: ${item.district}
+<b>建築</b>: ${item.architecture}<br>
+<b>環境</b>: ${item.environment}<br>
+<b>社会</b>: ${item.society}<br>
+<b>雰囲気</b>: ${item.mood}<br>
+<b>地区</b>: ${item.district}
 </div>
 
 <div class="card-col">
