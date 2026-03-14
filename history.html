@@ -168,6 +168,24 @@ z-index:1000;
 box-shadow:0 0 12px var(--main);
 }
 
+/* モード別アクセントカラー */
+
+.mode-cyberpunk{
+--accent:#ff00ff;
+}
+
+.mode-apocalypse{
+--accent:#ff6600;
+}
+
+.mode-synthwave{
+--accent:#ff66ff;
+}
+
+.mode-noir{
+--accent:#aaaaaa;
+}
+
 .card:active{
 
 box-shadow:
@@ -233,7 +251,7 @@ history.forEach((item,index)=>{
 
 const card=document.createElement("div");
 
-card.className="card";
+card.className="card mode-" + item.mode;
 
 card.innerHTML=`
 
