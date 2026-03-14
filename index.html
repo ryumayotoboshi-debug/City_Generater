@@ -12,6 +12,11 @@
 
 <style>
 
+@keyframes neonFlicker{
+0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+20%,24%,55%{opacity:0.6;}
+}
+
 :root{
 --main:#00ffff;
 --accent:#ff00ff;
@@ -45,6 +50,7 @@ font-size:56px;
 margin:8px 0 14px 0;
 color:var(--main);
 text-shadow:0 0 10px var(--main),0 0 20px var(--main),0 0 40px var(--main);
+animation:neonFlicker 4s infinite;
 }
 
 .controls{
