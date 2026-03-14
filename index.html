@@ -405,6 +405,28 @@ saveHistory(city);
 
 }
 
+function loadSelectedCity(){
+
+const data = localStorage.getItem("selectedCity");
+
+if(!data) return;
+
+const city = JSON.parse(data);
+
+document.getElementById("architecture").textContent = city.architecture;
+document.getElementById("environment").textContent = city.environment;
+document.getElementById("society").textContent = city.society;
+document.getElementById("mood").textContent = city.mood;
+document.getElementById("district").textContent = city.district;
+document.getElementById("facility").textContent = city.facility;
+document.getElementById("job").textContent = city.job;
+document.getElementById("character").textContent = city.character;
+document.getElementById("incident").textContent = city.incident;
+
+localStorage.removeItem("selectedCity");
+
+}
+
 function changeTheme(){
 
 if(currentMode==="cyberpunk"){
@@ -430,6 +452,7 @@ document.documentElement.style.setProperty("--accent","#888888")
 }
 
 generateCity()
+loadSelectedCity()
 
 </script>
 
