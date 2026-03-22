@@ -16,8 +16,8 @@
 
 body{
 
-background:black;
-color:white;
+background:#0f0f0f; /* 真っ黒→少しだけ明るく */
+color:#e8e6df;
 
 font-family:-apple-system, BlinkMacSystemFont, sans-serif;
 
@@ -56,11 +56,11 @@ padding:16px;
 
 margin-bottom:20px;
 
-background:rgba(0,0,0,0.6);
+background:rgba(20,20,20,0.6);
 
 box-shadow:
-0 0 10px #00ffff,
-0 0 20px rgba(0,0,0,0.8);
+0 0 6px var(--main),
+0 0 12px rgba(255,255,255,0.05);
 
 line-height:1.6;
 
@@ -77,9 +77,7 @@ height:2px;
 background:linear-gradient(
 90deg,
 transparent,
-var(--main),
 var(--accent),
-var(--main),
 transparent
 );
 
@@ -114,6 +112,8 @@ color:var(--accent);
 font-weight:bold;
 
 margin-bottom:6px;
+
+text-shadow:0 0 4px var(--accent);
 
 }
 
@@ -185,9 +185,10 @@ box-shadow:0 0 12px var(--main);
 --accent:#01cdfe;
 }
 
+/* DreamCore専用カラー */
 .mode-dreamcore{
---main:#dddddd;
---accent:#888888;
+--main:#e8e6df;      /* ぼんやりした白 */
+--accent:#d6d2c4;    /* くすんだベージュ */
 }
 
 .card:active{
