@@ -22,6 +22,11 @@
 --accent:#ff00ff;
 }
 
+.mode-dreamcore{
+--main:#e8e6df;
+--accent:#d6d2a6;
+}
+
 body{
 margin:0;
 background:#020202;
@@ -291,10 +296,27 @@ function setMode(mode){
 
 currentMode = mode;
 
+/* ▼ 表示名の更新（そのまま） */
 document.getElementById("modeButton").innerText =
 mode.charAt(0).toUpperCase() + mode.slice(1);
 
+/* ▼ ドロップダウンを閉じる（そのまま） */
 document.getElementById("modeDropdown").style.display="none";
+
+/* ▼ ここから追加（重要） */
+
+/* 既存のモードクラスをすべて削除 */
+document.body.classList.remove(
+"mode-cyberpunk",
+"mode-apocalypse",
+"mode-synthwave",
+"mode-dreamcore"
+);
+
+/* 選択されたモードを追加 */
+document.body.classList.add("mode-" + mode);
+
+/* ▲ ここまで追加 */
 
 changeTheme();
 
